@@ -1,0 +1,1 @@
+<%=now.ToString("yyyy-MM-dd HH:mm:ss")%>
