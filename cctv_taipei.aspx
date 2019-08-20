@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
-<title>豪雨災點tes</title>
+<title>豪雨災點</title>
 <style>
 #map {
 	height:100%;
@@ -50,35 +50,35 @@ function initMap() {
 	});
 	
 	<%
-    Dim i As Integer=0
-    Dim con As MySqlConnection=New MySqlConnection(Application("DB"))
-    con.open()
-    Dim cmd As New MySqlCommand()
-    cmd.Connection=con
-    Dim dr As MySqlDataReader
-    cmd.CommandText = "select * from cctv_taipei_t;"
-    dr =cmd.ExecuteReader()
-    while dr.read()
-        i=i+1
-        response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
-        response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
-        response.write("map:map," & VBNewLine)
-        response.write("icon:'img/map_icon/cctv_red.png'" & VBNewLine)
-        response.write("});" & VBNewLine)
-        response.write("markers_cctv_taipei_交通局.push(marker_" & i & ");" & VBNewLine)
+	Dim i As Integer=0
+	Dim con As MySqlConnection=New MySqlConnection(Application("DB"))
+	con.open()
+	Dim cmd As New MySqlCommand()
+	cmd.Connection=con
+	Dim dr As MySqlDataReader
+	cmd.CommandText="select * from cctv_taipei_交通局;"
+	dr=cmd.ExecuteReader()
+	while dr.read()
+		i=i+1
+		response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
+			response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
+			response.write("map:map," & VBNewLine)
+			response.write("icon:'img/map_icon/cctv_red.png'" & VBNewLine)
+		response.write("});" & VBNewLine)
+		response.write("markers_cctv_taipei_交通局.push(marker_" & i & ");" & VBNewLine)
+		
+		response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
+			response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+		response.write("})" & VBNewLine)
 
-        response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
-        response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-        response.write("})" & VBNewLine)
-
-        response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
-        response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
-        response.write("});" & VBNewLine)
-    end while
-    dr.close()
-    con.close()
-    con.dispose()
-    con=nothing
+		response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
+			response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
+		response.write("});" & VBNewLine)
+	end while
+	dr.close()
+	con.close()
+	con.dispose()
+	con=nothing
 	%>
 	var markerCluster=new MarkerClusterer(map,markers_cctv_taipei_交通局,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 }

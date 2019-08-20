@@ -58,99 +58,99 @@ function initMap() {
 	});
 	
 	<%
-    Dim i As Integer=0
-    Dim con As MySqlConnection=New MySqlConnection(Application("DB"))
-    con.open()
-    Dim cmd As New MySqlCommand()
-    cmd.Connection=con
-    Dim dr As MySqlDataReader
+	Dim i As Integer=0
+	Dim con As MySqlConnection=New MySqlConnection(Application("DB"))
+	con.open()
+	Dim cmd As New MySqlCommand()
+	cmd.Connection=con
+	Dim dr As MySqlDataReader
 
-    cmd.CommandText = "select * from cctv_tainan_t limit 3;"
-    dr =cmd.ExecuteReader()
-    while dr.read()
-        i=i+1
-        response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
-        response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
-        'response.write("map:map," & VBNewLine)
-        response.write("icon:'img/map_icon/cctv.png'," & VBNewLine)
-        response.write("});" & VBNewLine)
-        response.write("markers_cctv_tainan_交通局.push(marker_" & i & ");" & VBNewLine)
+	cmd.CommandText="select * from cctv_tainan_交通局 limit 3;"
+	dr=cmd.ExecuteReader()
+	while dr.read()
+		i=i+1
+		response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
+			response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
+			'response.write("map:map," & VBNewLine)
+			response.write("icon:'img/map_icon/cctv.png'," & VBNewLine)
+		response.write("});" & VBNewLine)
+		response.write("markers_cctv_tainan_交通局.push(marker_" & i & ");" & VBNewLine)
+		
+		response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
+			response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+		response.write("})" & VBNewLine)
 
-        response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
-        response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-        response.write("})" & VBNewLine)
+		response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
+			response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
+		response.write("});" & VBNewLine)
+	end while
+	dr.close()
+	
+	cmd.CommandText="select * from cctv_tainan_警察局 limit 3;"
+	dr=cmd.ExecuteReader()
+	while dr.read()
+		i=i+1
+		response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
+			response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
+			'response.write("map:map," & VBNewLine)
+			response.write("icon:'img/map_icon/cctv.png'," & VBNewLine)
+		response.write("});" & VBNewLine)
+		response.write("markers_cctv_tainan_警察局.push(marker_" & i & ");" & VBNewLine)
+		
+		response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
+			response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+		response.write("})" & VBNewLine)
 
-        response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
-        response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
-        response.write("});" & VBNewLine)
-    end while
-    dr.close()
+		response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
+			response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
+		response.write("});" & VBNewLine)
+	end while
+	dr.close()
+	
+	cmd.CommandText="select * from cctv_taoyuan where not isNull(lon) limit 3;"
+	dr=cmd.ExecuteReader()
+	while dr.read()
+		i=i+1
+		response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
+			response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
+			'response.write("map:map," & VBNewLine)
+			response.write("icon:'img/map_icon/cctv.png'," & VBNewLine)
+		response.write("});" & VBNewLine)
+		response.write("markers_cctv_taoyuan.push(marker_" & i & ");" & VBNewLine)
+		
+		response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
+			response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+		response.write("})" & VBNewLine)
 
-    cmd.CommandText="select * from cctv_tainan_警察局 limit 3;"
-    dr=cmd.ExecuteReader()
-    while dr.read()
-        i=i+1
-        response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
-        response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
-        'response.write("map:map," & VBNewLine)
-        response.write("icon:'img/map_icon/cctv.png'," & VBNewLine)
-        response.write("});" & VBNewLine)
-        response.write("markers_cctv_tainan_警察局.push(marker_" & i & ");" & VBNewLine)
+		response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
+			response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
+		response.write("});" & VBNewLine)
+	end while
+	dr.close()
+	
+	cmd.CommandText="select * from cctv_gov;"
+	dr=cmd.ExecuteReader()
+	while dr.read()
+		i=i+1
+		response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
+			response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
+			'response.write("map:map," & VBNewLine)
+			response.write("icon:'img/map_icon/cctv.png'," & VBNewLine)
+		response.write("});" & VBNewLine)
+		response.write("markers_cctv_gov.push(marker_" & i & ");" & VBNewLine)
+		
+		response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
+			response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+		response.write("})" & VBNewLine)
 
-        response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
-        response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-        response.write("})" & VBNewLine)
-
-        response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
-        response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
-        response.write("});" & VBNewLine)
-    end while
-    dr.close()
-
-    cmd.CommandText="select * from cctv_taoyuan where not isNull(lon) limit 3;"
-    dr=cmd.ExecuteReader()
-    while dr.read()
-        i=i+1
-        response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
-        response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
-        'response.write("map:map," & VBNewLine)
-        response.write("icon:'img/map_icon/cctv.png'," & VBNewLine)
-        response.write("});" & VBNewLine)
-        response.write("markers_cctv_taoyuan.push(marker_" & i & ");" & VBNewLine)
-
-        response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
-        response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-        response.write("})" & VBNewLine)
-
-        response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
-        response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
-        response.write("});" & VBNewLine)
-    end while
-    dr.close()
-
-    cmd.CommandText="select * from cctv_gov;"
-    dr=cmd.ExecuteReader()
-    while dr.read()
-        i=i+1
-        response.write("var marker_" & i & "=new google.maps.Marker({" & VBNewLine)
-        response.write("position:{lat:" & dr.item("lat") & ",lng:" & dr.item("lon") & "}," & VBNewLine)
-        'response.write("map:map," & VBNewLine)
-        response.write("icon:'img/map_icon/cctv.png'," & VBNewLine)
-        response.write("});" & VBNewLine)
-        response.write("markers_cctv_gov.push(marker_" & i & ");" & VBNewLine)
-
-        response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
-        response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-        response.write("})" & VBNewLine)
-
-        response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
-        response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
-        response.write("});" & VBNewLine)
-    end while
-    dr.close()
-    con.close()
-    con.dispose()
-    con=nothing
+		response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
+			response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
+		response.write("});" & VBNewLine)
+	end while
+	dr.close()
+	con.close()
+	con.dispose()
+	con=nothing
 	%>
 }
 </script>

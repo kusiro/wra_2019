@@ -1,5 +1,4 @@
-﻿
-Partial Class event
+﻿Partial Public Class [event]
     Inherits System.Web.UI.Page
 
 End Class
