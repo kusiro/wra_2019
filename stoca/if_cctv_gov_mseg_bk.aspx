@@ -6,15 +6,11 @@
             con.open()
             Dim cmd As New MySqlCommand()
             cmd.Connection=con
-            cmd.Parameters.AddWithValue("@aid",request.QueryString("aid"))
-            cmd.CommandText="select * from cctv_taoyuan where aid=@aid"
+            cmd.Parameters.AddWithValue("@aid", Request.QueryString("aid"))
+            cmd.CommandText = "select * from cctv_gov_mseg where aid=@aid"
             Dim dr As MySqlDataReader=cmd.ExecuteReader()
             If dr.read() Then
-                s=s & "<div style='font-size:18px;font-weight:bold;'>" & dr.item("address").ToString() & "</div>"
-                s = s & "<img src='" & dr.Item("url") & "' style='max-width:100%'>"
-                s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: " & dr.Item("id") & "</h3>"
-                s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測時間: " & dr.Item("realtime") & "</h3>"
-                s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>IM_NAME: " & dr.Item("im_name") & "</h3>"
+                s = s & "<h1>" & dr.Item("normal").ToString() & "</h1>"
                 dr.close()
                 con.close()
                 con.dispose()

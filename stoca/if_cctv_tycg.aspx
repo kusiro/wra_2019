@@ -7,7 +7,7 @@
             Dim cmd As New MySqlCommand()
             cmd.Connection=con
             cmd.Parameters.AddWithValue("@aid",request.QueryString("aid"))
-            cmd.CommandText="select * from cctv_taoyuan where aid=@aid"
+            cmd.CommandText = "select * from cctv_tycg where aid=@aid"
             Dim dr As MySqlDataReader=cmd.ExecuteReader()
             If dr.read() Then
                 s=s & "<div style='font-size:18px;font-weight:bold;'>" & dr.item("address").ToString() & "</div>"

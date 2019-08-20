@@ -33,13 +33,12 @@ html,body{
 }
 </style>
 </head>
+
 <body style="font-family:微軟正黑體">
 
 <div id="floating-panel">
-<input type="checkbox" id="CB_rain_2016_06_10" onclick="toggle_rain_2016_06_10();" checked> 2016-06-10 豪雨災點<br/>
-
+<input type="checkbox" id="CB_rain_2016_05_16" onclick="toggle_rain_2016_05_16();" checked> 2016-05-16 豪雨災點<br/>
 <input type="checkbox" id="CB_cctv_taipei_t" onclick="toggle_cctv_taipei_t();"> CCTV 台北市 交通局<br/>
-
 <input type="checkbox" id="CB_cctv_tainan_t" onclick="toggle_cctv_tainan_t();"> CCTV 台南市 交通局<br/>
 <input type="checkbox" id="CB_cctv_tainan_p" onclick="toggle_cctv_tainan_p();"> CCTV 台南市 警察局<br/>
 <input type="checkbox" id="CB_cctv_taoyuan" onclick="toggle_cctv_taoyuan();"> CCTV 桃園市<br/>
@@ -51,17 +50,14 @@ html,body{
 <div id="map"></div>
 
 <script>
-var markers_rain_2016_06_10=[];
-
+var markers_rain_2016_05_16=[];
 var markers_cctv_taipei_t=[];
-
 var markers_cctv_tainan_t=[];
 var markers_cctv_tainan_p=[];
 var markers_cctv_taoyuan=[];
 var markers_cctv_gov=[];
-    var markers_ilan = [];
-    var markers_cctv_nantou = [];
-
+var markers_ilan = [];
+var markers_cctv_nantou = [];
 var map;
 function initMap() {
 	map=new google.maps.Map(document.getElementById('map'), {
@@ -75,7 +71,7 @@ function initMap() {
     con.open()
     Dim cmd As New MySqlCommand()
     cmd.Connection=con
-    cmd.CommandText="select * from rain_2016_06_10 where not isNull(lon);"
+    cmd.CommandText="select * from rain_2016_05_16 where not isNull(lon);"
     Dim dr As MySqlDataReader=cmd.ExecuteReader()
     while dr.read()
         i=i+1
@@ -84,7 +80,7 @@ function initMap() {
         response.write("map:map," & VBNewLine)
         response.write("icon:'../img/map_icon/flood.png'," & VBNewLine)
         response.write("});" & VBNewLine)
-        response.write("markers_rain_2016_06_10.push(marker_" & i & ");" & VBNewLine)
+        response.write("markers_rain_2016_05_16.push(marker_" & i & ");" & VBNewLine)
 
         response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
         response.write("content:'災害地點：" & dr.item("災害地點") & "<br/>災情描述：" & dr.item("災情描述") & "'" & VBNewLine)
@@ -105,8 +101,9 @@ function initMap() {
         'response.write("map:map," & VBNewLine)
         'response.write("title:'" & dr.item("address").ToString() & "'," & VBNewLine)
         response.write("icon:'../img/map_icon/cctv_orange.png'," & VBNewLine)
-        response.write("});" & VBNewLine)
-        response.write("markers_cctv_taipei_t.push(marker_" & i & ");" & VBNewLine)
+        Response.Write("});" & vbNewLine)
+
+        Response.write("markers_cctv_taipei_t.push(marker_" & i & ");" & VBNewLine)
 
         response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
         response.write("content:'<iframe src=if_cctv_taipei_t.aspx?aid=" & dr.item("aid") & " width=600 height=400 frameborder=0></iframe>'" & VBNewLine)
@@ -234,7 +231,7 @@ function initMap() {
         Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
         Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
         'response.write("map:map," & VBNewLine)
-        Response.Write("icon:'../img/map_icon/cctv_blacks.png'," & vbNewLine)
+        Response.Write("icon:'../img/map_icon/cctv_black.png'," & vbNewLine)
         Response.Write("});" & vbNewLine)
         Response.Write("markers_cctv_nantou.push(marker_" & i & ");" & vbNewLine)
 
@@ -259,14 +256,14 @@ function initMap() {
 </html>
 
 <script>
-function toggle_rain_2016_06_10() {
-	if (document.getElementById('CB_rain_2016_06_10').checked) {
-		for (var i=0;i < markers_rain_2016_06_10.length;i++) {
-			markers_rain_2016_06_10[i].setMap(map);
+function toggle_rain_2016_05_16() {
+	if (document.getElementById('CB_rain_2016_05_16').checked) {
+		for (var i=0;i < markers_rain_2016_05_16.length;i++) {
+			markers_rain_2016_05_16[i].setMap(map);
 		}
 	}else{
-		for (var i=0;i < markers_rain_2016_06_10.length;i++) {
-			markers_rain_2016_06_10[i].setMap(null);
+		for (var i=0;i < markers_rain_2016_05_16.length;i++) {
+			markers_rain_2016_05_16[i].setMap(null);
 		}
 	}
 }
@@ -342,7 +339,7 @@ function toggle_ilan() {
 		}
 	}
     }
-    function toggle_nantou() {
+function toggle_nantou() {
         if (document.getElementById('CB_nantou').checked) {
             for (var i = 0; i < markers_cctv_nantou.length; i++) {
                 markers_cctv_nantou[i].setMap(map);
