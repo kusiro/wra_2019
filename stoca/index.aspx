@@ -3,8 +3,6 @@
 <head>
     <title>WRA</title>
     <link rel="stylesheet" href="./style/main.css">
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXnPbeuifWgnx-WNF7WjsD8YMkYVKSPmg&libraries=places&callback=initMap"></script>
 </head>
 <body>
     <div id="app">
