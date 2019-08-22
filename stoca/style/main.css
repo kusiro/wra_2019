@@ -1,15 +1,36 @@
-body, html {
-    margin: 0; padding: 0;
-    height: 100vh;
-}
-
 #app {
     width: 100%;
     height: 100%;
     display: flex;
     flex-wrap: nowrap;
 }
+#map{
+    height:100%;
+}
+html,body{
+    height:100%;
+    margin:0;
+    padding:0;
+}
+#floating-panel{
+    position:absolute;
+    top:100px;
+    left:10px;
+    z-index:5;
+    background-color:#fff;
+    padding:16px;
+    border:1px solid #999;
+    line-height:30px;
+    font-size:18px;
+    font-weight:bold;
+}
 
+@media only screen and (max-width: 479px){
+    #floating-panel{
+        font-size:12px;
+        padding:6px;
+    }
+}
 #app iframe {
     border: none;
     height: 100%;
@@ -20,4 +41,44 @@ body, html {
 }
 .map {
     flex: 11;
+}
+
+.searchBox {
+    position: absolute;
+    z-index: 5;
+    top: 25px;
+    left: 10px;
+    background-color: #fff;
+    font-family: Roboto;
+    border-bottom: 1px solid #DADCE0;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 11px 25px 11px 11px;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    width: 400px;
+    height: 44px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+}
+#pac-input {
+    border: none;
+    height: 100%;
+    width: 100%;
+    outline: none;
+}
+.searchBottom {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 100%;
+    padding: 9px 0;
+    display: block;
+}
+.searchBottom::before {
+    content: '';
+    background: url(//maps.gstatic.com/tactile/omnibox/quantum_search_button-20150825-1x.png);
+    height: 23px;
+    width: 23px;
+    display: block;
 }

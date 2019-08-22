@@ -4,73 +4,7 @@
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
         <title>豪雨災點</title>
-        <style>
-            #map{
-                height:100%;
-            }
-            html,body{
-                height:100%;
-                margin:0;
-                padding:0;
-            }
-            #floating-panel{
-                position:absolute;
-                top:100px;
-                left:10px;
-                z-index:5;
-                background-color:#fff;
-                padding:16px;
-                border:1px solid #999;
-                line-height:30px;
-                font-size:18px;
-                font-weight:bold;
-            }
-            .searchBox {
-                position: absolute;
-                z-index: 5;
-                top: 25px;
-                left: 10px;
-                background-color: #fff;
-                font-family: Roboto;
-                border-bottom: 1px solid #DADCE0;
-                font-size: 13px;
-                font-weight: 400;
-                padding: 11px 25px 11px 11px;
-                box-sizing: border-box;
-                text-overflow: ellipsis;
-                width: 400px;
-                height: 44px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
-            }
-            #pac-input {
-                border: none;
-                height: 100%;
-                width: 100%;
-                outline: none;
-            }
-            .searchBottom {
-                position: absolute;
-                right: 10px;
-                top: 0;
-                height: 100%;
-                padding: 9px 0;
-                display: block;
-            }
-            .searchBottom::before {
-                content: '';
-                background: url(//maps.gstatic.com/tactile/omnibox/quantum_search_button-20150825-1x.png);
-                height: 23px;
-                width: 23px;
-                display: block;
-            }
-            @media only screen and (max-width: 479px){
-                #floating-panel{
-                    font-size:12px;
-                    padding:6px;
-                }
-            }
-        </style>
+        <link rel="stylesheet" href="./style/main.css">
     </head>
 
     <body style="font-family:微軟正黑體">
@@ -112,16 +46,12 @@
                     center: { lat: 23.5, lng: 121 },
                     disableDefaultUI: true
                 });
-                // Create the search box and link it to the UI element.
                 var input = document.getElementById('pac-input');
                 var searchBox = new google.maps.places.SearchBox(input);
 
-                // Bias the SearchBox results towards current map's viewport.
                 map.addListener('bounds_changed', function () {
                     searchBox.setBounds(map.getBounds());
                 });
-
-
                 searchBox.addListener('places_changed', function () {
                     var places = searchBox.getPlaces();
 
@@ -151,210 +81,210 @@
 
                 
                 <%
-            Dim i As Integer = 0
-            Dim con As MySqlConnection = New MySqlConnection(Application("DB"))
-            con.Open()
-            Dim cmd As New MySqlCommand()
-            cmd.Connection = con
-            cmd.CommandText = "select * from rain_2016_05_16 where not isNull(lon);"
-            Dim dr As MySqlDataReader = cmd.ExecuteReader()
-            While dr.Read()
-                i = i + 1
-                Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                Response.Write("map:map," & vbNewLine)
-                Response.Write("icon:'../img/map_icon/flood.png'," & vbNewLine)
-                Response.Write("});" & vbNewLine)
-                Response.Write("markers_rain_2016_05_16.push(marker_" & i & ");" & vbNewLine)
+                    Dim i As Integer = 0
+                    Dim con As MySqlConnection = New MySqlConnection(Application("DB"))
+                    con.Open()
+                    Dim cmd As New MySqlCommand()
+                    cmd.Connection = con
+                    cmd.CommandText = "select * from rain_2016_05_16 where not isNull(lon);"
+                    Dim dr As MySqlDataReader = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        Response.Write("map:map," & vbNewLine)
+                        Response.Write("icon:'../img/map_icon/flood.png'," & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                        Response.Write("markers_rain_2016_05_16.push(marker_" & i & ");" & vbNewLine)
 
-                Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-                Response.Write("content:'災害地點：" & dr.Item("災害地點") & "<br/>災情描述：" & dr.Item("災情描述") & "'" & vbNewLine)
-                Response.Write("})" & vbNewLine)
+                        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
+                        Response.Write("content:'災害地點：" & dr.Item("災害地點") & "<br/>災情描述：" & dr.Item("災情描述") & "'" & vbNewLine)
+                        Response.Write("})" & vbNewLine)
 
-                Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-                Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-            End While
-            dr.Close()
+                        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
+                        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                    End While
+                    dr.Close()
 
-            cmd.CommandText = "select * from cctv_taipei_t;"
-            dr = cmd.ExecuteReader()
-            While dr.Read()
-                i = i + 1
-                Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                'response.write("map:map," & VBNewLine)
-                'response.write("title:'" & dr.item("address").ToString() & "'," & VBNewLine)
-                Response.Write("icon:'../img/map_icon/cctv_orange.png'," & vbNewLine)
-                Response.Write("});" & vbNewLine)
+                    cmd.CommandText = "select * from cctv_taipei_t;"
+                    dr = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        'response.write("map:map," & VBNewLine)
+                        'response.write("title:'" & dr.item("address").ToString() & "'," & VBNewLine)
+                        Response.Write("icon:'../img/map_icon/cctv_orange.png'," & vbNewLine)
+                        Response.Write("});" & vbNewLine)
 
-                Response.Write("markers_cctv_taipei_t.push(marker_" & i & ");" & vbNewLine)
+                        Response.Write("markers_cctv_taipei_t.push(marker_" & i & ");" & vbNewLine)
 
-                Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-                Response.Write("content:'<iframe src=if_cctv_taipei_t.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
-                Response.Write("})" & vbNewLine)
+                        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
+                        Response.Write("content:'<iframe src=if_cctv_taipei_t.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
+                        Response.Write("})" & vbNewLine)
 
-                Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-                Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-            End While
-            dr.Close()
+                        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
+                        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                    End While
+                    dr.Close()
 
-            cmd.CommandText = "select * from cctv_tainan_t;"
-            dr = cmd.ExecuteReader()
-            While dr.Read()
-                i = i + 1
-                Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                'response.write("map:map," & VBNewLine)
-                Response.Write("title:'" & dr.Item("address").ToString() & "'," & vbNewLine)
-                Response.Write("icon:'../img/map_icon/cctv_orange.png'," & vbNewLine)
-                Response.Write("});" & vbNewLine)
-                Response.Write("markers_cctv_tainan_t.push(marker_" & i & ");" & vbNewLine)
+                    cmd.CommandText = "select * from cctv_tainan_t;"
+                    dr = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        'response.write("map:map," & VBNewLine)
+                        Response.Write("title:'" & dr.Item("address").ToString() & "'," & vbNewLine)
+                        Response.Write("icon:'../img/map_icon/cctv_orange.png'," & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                        Response.Write("markers_cctv_tainan_t.push(marker_" & i & ");" & vbNewLine)
 
-                Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-                'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-                Response.Write("content:'<iframe src=if_cctv_tainan_t.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
-                Response.Write("})" & vbNewLine)
+                        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
+                        'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+                        Response.Write("content:'<iframe src=if_cctv_tainan_t.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
+                        Response.Write("})" & vbNewLine)
 
-                Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-                Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-            End While
-            dr.Close()
+                        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
+                        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                    End While
+                    dr.Close()
 
-            cmd.CommandText = "select * from cctv_tainan_p;"
-            dr = cmd.ExecuteReader()
-            While dr.Read()
-                i = i + 1
-                Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                'response.write("map:map," & VBNewLine)
-                Response.Write("icon:'../img/map_icon/cctv_orange.png'," & vbNewLine)
-                Response.Write("});" & vbNewLine)
-                Response.Write("markers_cctv_tainan_p.push(marker_" & i & ");" & vbNewLine)
+                    cmd.CommandText = "select * from cctv_tainan_p;"
+                    dr = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        'response.write("map:map," & VBNewLine)
+                        Response.Write("icon:'../img/map_icon/cctv_orange.png'," & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                        Response.Write("markers_cctv_tainan_p.push(marker_" & i & ");" & vbNewLine)
 
-                Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-                'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-                Response.Write("content:'<iframe src=if_cctv_tainan_p.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
-                Response.Write("})" & vbNewLine)
+                        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
+                        'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+                        Response.Write("content:'<iframe src=if_cctv_tainan_p.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
+                        Response.Write("})" & vbNewLine)
 
-                Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-                Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-            End While
-            dr.Close()
+                        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
+                        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                    End While
+                    dr.Close()
 
-            cmd.CommandText = "select * from cctv_taoyuan where not isNull(lon);"
-            dr = cmd.ExecuteReader()
-            While dr.Read()
-                i = i + 1
-                Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                'response.write("map:map," & VBNewLine)
-                Response.Write("icon:'../img/map_icon/cctv_red.png'," & vbNewLine)
-                Response.Write("});" & vbNewLine)
-                Response.Write("markers_cctv_taoyuan.push(marker_" & i & ");" & vbNewLine)
+                    cmd.CommandText = "select * from cctv_taoyuan where not isNull(lon);"
+                    dr = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        'response.write("map:map," & VBNewLine)
+                        Response.Write("icon:'../img/map_icon/cctv_red.png'," & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                        Response.Write("markers_cctv_taoyuan.push(marker_" & i & ");" & vbNewLine)
 
-                Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-                'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-                Response.Write("content:'<iframe src=if_cctv_taoyuan.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
-                Response.Write("})" & vbNewLine)
+                        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
+                        'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+                        Response.Write("content:'<iframe src=if_cctv_taoyuan.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
+                        Response.Write("})" & vbNewLine)
 
-                Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-                Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-            End While
-            dr.Close()
+                        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
+                        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                    End While
+                    dr.Close()
 
-            cmd.CommandText = "select * from cctv_gov where not isNull(lon);"
-            dr = cmd.ExecuteReader()
-            While dr.Read()
-                i = i + 1
-                Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                'response.write("map:map," & VBNewLine)
-                Response.Write("icon:'../img/map_icon/cctv.png'," & vbNewLine)
-                Response.Write("});" & vbNewLine)
-                Response.Write("markers_cctv_gov.push(marker_" & i & ");" & vbNewLine)
+                    cmd.CommandText = "select * from cctv_gov where not isNull(lon);"
+                    dr = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        'response.write("map:map," & VBNewLine)
+                        Response.Write("icon:'../img/map_icon/cctv.png'," & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                        Response.Write("markers_cctv_gov.push(marker_" & i & ");" & vbNewLine)
 
-                Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-                'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-                Response.Write("content:'<iframe src=if_cctv_gov.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
-                Response.Write("})" & vbNewLine)
+                        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
+                        'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+                        Response.Write("content:'<iframe src=if_cctv_gov.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
+                        Response.Write("})" & vbNewLine)
 
-                Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-                Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-            End While
-            dr.Close()
-            cmd.CommandText = "select * from sensor_ilang;"
-            dr = cmd.ExecuteReader()
-            While dr.Read()
-                i = i + 1
-                Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                'response.write("map:map," & VBNewLine)
-                Response.Write("icon:'../img/map_icon/powerlinepole.png'" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-                Response.Write("markers_ilan.push(marker_" & i & ");" & vbNewLine)
+                        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
+                        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                    End While
+                    dr.Close()
+                    cmd.CommandText = "select * from sensor_ilang;"
+                    dr = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        'response.write("map:map," & VBNewLine)
+                        Response.Write("icon:'../img/map_icon/powerlinepole.png'" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                        Response.Write("markers_ilan.push(marker_" & i & ");" & vbNewLine)
 
-                Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-                Response.Write("content:'經度：" & dr.Item("lon") & "<br/>緯度：" & dr.Item("lat") & "<br/>地址：" & Trim(dr.Item("address").ToString()) & ">'" & vbNewLine)
-                Response.Write("})" & vbNewLine)
+                        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
+                        Response.Write("content:'經度：" & dr.Item("lon") & "<br/>緯度：" & dr.Item("lat") & "<br/>地址：" & Trim(dr.Item("address").ToString()) & ">'" & vbNewLine)
+                        Response.Write("})" & vbNewLine)
 
-                Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-                Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-            End While
-            dr.Close()
+                        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
+                        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                    End While
+                    dr.Close()
 
-            cmd.CommandText = "select * from cctv_nantou;"
-            dr = cmd.ExecuteReader()
-            While dr.Read()
-                i = i + 1
-                Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                'response.write("map:map," & VBNewLine)
-                Response.Write("icon:'../img/map_icon/cctv_black.png'," & vbNewLine)
-                Response.Write("});" & vbNewLine)
-                Response.Write("markers_cctv_nantou.push(marker_" & i & ");" & vbNewLine)
+                    cmd.CommandText = "select * from cctv_nantou;"
+                    dr = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        'response.write("map:map," & VBNewLine)
+                        Response.Write("icon:'../img/map_icon/cctv_black.png'," & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                        Response.Write("markers_cctv_nantou.push(marker_" & i & ");" & vbNewLine)
 
-                Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-                'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
-                Response.Write("content:'<iframe src=if_cctv_nantou.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
-                Response.Write("})" & vbNewLine)
+                        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
+                        'response.write("content:'<img src=" & dr.item("url") & ">'" & VBNewLine)
+                        Response.Write("content:'<iframe src=if_cctv_nantou.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
+                        Response.Write("})" & vbNewLine)
 
-                Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-                Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-            End While
-            dr.Close()
+                        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
+                        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                    End While
+                    dr.Close()
 
-            cmd.CommandText = "select * from cctv_tycg;"
-            dr = cmd.ExecuteReader()
-            While dr.Read()
-                i = i + 1
-                Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                Response.Write("icon:'../img/map_icon/cctv_black.png'," & vbNewLine)
-                Response.Write("});" & vbNewLine)
-                Response.Write("markers_cctv_tycg.push(marker_" & i & ");" & vbNewLine)
+                    cmd.CommandText = "select * from cctv_tycg;"
+                    dr = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        Response.Write("icon:'../img/map_icon/cctv_black.png'," & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                        Response.Write("markers_cctv_tycg.push(marker_" & i & ");" & vbNewLine)
 
-                Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-                Response.Write("content:'<iframe src=if_cctv_tycg.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
-                Response.Write("})" & vbNewLine)
+                        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
+                        Response.Write("content:'<iframe src=if_cctv_tycg.aspx?aid=" & dr.Item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine)
+                        Response.Write("})" & vbNewLine)
 
-                Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-                Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-                Response.Write("});" & vbNewLine)
-            End While
+                        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
+                        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
+                        Response.Write("});" & vbNewLine)
+                    End While
 
-            con.Close()
-            con.Dispose()
-            con = Nothing
+                    con.Close()
+                    con.Dispose()
+                    con = Nothing
                 %>
-                }
+            }
         </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXnPbeuifWgnx-WNF7WjsD8YMkYVKSPmg&libraries=places&callback=initMap"></script>
     </body>
