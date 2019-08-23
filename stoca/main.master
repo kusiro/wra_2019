@@ -96,12 +96,16 @@
                             "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_taipei_t.push(marker_" & i & ");" & vbNewLine &
-                        "var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine &
-                            "content:'<iframe src=if_cctv_taipei_t.aspx?aid=" & dr.item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine &
-                        "});" & vbNewLine &
-                        "marker_" & i & ".addListener('click',function() {" & vbNewLine &
-                            "infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine &
-                        "});" & vbNewLine
+                        "var infowindow = null;" & vbNewLine &
+                        "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                            "if (infowindow) {" & vbNewLine &
+                                "infowindow.close();" & vbNewLine &
+                            "}" & vbNewLine &
+                            "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                                "content:'<iframe src=if_cctv_taipei_t.aspx?aid=" & dr.item("aid") & " width=400 height=300 frameborder=0></iframe>'" & vbNewLine &
+                            "});" & vbNewLine &
+                            "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                        "})" & vbNewLine
                     )
                 end while
                 dr.close()
@@ -117,12 +121,16 @@
                             "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_tainan_t.push(marker_" & i & ");" & vbNewLine &
-                        "var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine &
-                            "content:'<iframe src=if_cctv_tainan_t.aspx?aid=" & dr.item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine &
-                        "});" & vbNewLine &
-                        "marker_" & i & ".addListener('click',function() {" & vbNewLine &
-                            "infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine &
-                        "});" & vbNewLine
+                        "var infowindow = null;" & vbNewLine &
+                        "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                            "if (infowindow) {" & vbNewLine &
+                                "infowindow.close();" & vbNewLine &
+                            "}" & vbNewLine &
+                            "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                                "content:'<iframe src=if_cctv_tainan_t.aspx?aid=" & dr.item("aid") & " width=400 height=300 frameborder=0></iframe>'" & vbNewLine &
+                            "});" & vbNewLine &
+                            "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                        "})" & vbNewLine
                     )
                 end while
                 dr.close()
@@ -138,12 +146,16 @@
                             "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_tainan_p.push(marker_" & i & ");" & vbNewLine &
-                        "var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine &
-                            "content:'<iframe src=if_cctv_tainan_p.aspx?aid=" & dr.item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine &
-                        "});" & vbNewLine &
-                        "marker_" & i & ".addListener('click',function() {" & vbNewLine &
-                            "infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine &
-                        "});" & vbNewLine
+                        "var infowindow = null;" & vbNewLine &
+                        "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                            "if (infowindow) {" & vbNewLine &
+                                "infowindow.close();" & vbNewLine &
+                            "}" & vbNewLine &
+                            "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                                "content:'<iframe src=if_cctv_tainan_p.aspx?aid=" & dr.item("aid") & " width=400 height=300 frameborder=0></iframe>'" & vbNewLine &
+                            "});" & vbNewLine &
+                            "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                        "})" & vbNewLine
                     )
                 end while
                 dr.close()
@@ -159,12 +171,16 @@
                             "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_taoyuan.push(marker_" & i & ");" & vbNewLine &
-                        "var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine &
-                            "content:'<iframe src=if_cctv_taoyuan.aspx?aid=" & dr.item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine &
-                        "});" & vbNewLine &
-                        "marker_" & i & ".addListener('click',function() {" & vbNewLine &
-                            "infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine &
-                        "});" & vbNewLine
+                        "var infowindow = null;" & vbNewLine &
+                        "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                            "if (infowindow) {" & vbNewLine &
+                                "infowindow.close();" & vbNewLine &
+                            "}" & vbNewLine &
+                            "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                                "content:'<iframe src=if_cctv_taoyuan.aspx?aid=" & dr.item("aid") & " width=400 height=300 frameborder=0></iframe>'" & vbNewLine &
+                            "});" & vbNewLine &
+                            "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                        "})" & vbNewLine
                     )
                 end while
                 dr.close()
@@ -180,12 +196,16 @@
                             "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_gov.push(marker_" & i & ");" & vbNewLine &
-                        "var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine &
-                            "content:'<iframe src=if_cctv_gov.aspx?aid=" & dr.item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine &
-                        "});" & vbNewLine &
-                        "marker_" & i & ".addListener('click',function() {" & vbNewLine &
-                            "infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine &
-                        "});" & vbNewLine
+                        "var infowindow = null;" & vbNewLine &
+                        "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                            "if (infowindow) {" & vbNewLine &
+                                "infowindow.close();" & vbNewLine &
+                            "}" & vbNewLine &
+                            "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                                "content:'<iframe src=if_cctv_gov.aspx?aid=" & dr.item("aid") & " width=400 height=300 frameborder=0></iframe>'" & vbNewLine &
+                            "});" & vbNewLine &
+                            "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                        "})" & vbNewLine
                     )
                 end while
                 dr.close()
@@ -200,12 +220,16 @@
                             "icon:'../img/map_icon/powerlinepole.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_ilan.push(marker_" & i & ");" & vbNewLine &
-                        "var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine &
-                            "content:'經度：" & dr.item("lon") & "<br/>緯度：" & dr.item("lat") & "<br/>地址：" & Trim(dr.item("address").ToString()) & ">'" & vbNewLine &
-                        "});" & vbNewLine &
-                        "marker_" & i & ".addListener('click',function() {" & vbNewLine &
-                            "infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine &
-                        "});" & vbNewLine
+                        "var infowindow = null;" & vbNewLine &
+                        "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                            "if (infowindow) {" & vbNewLine &
+                                "infowindow.close();" & vbNewLine &
+                            "}" & vbNewLine &
+                            "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                                "content:'經度：" & dr.item("lon") & "<br/>緯度：" & dr.item("lat") & "<br/>地址：" & Trim(dr.item("address").ToString()) & ">'" & vbNewLine &
+                            "});" & vbNewLine &
+                            "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                        "})" & vbNewLine
                     )
                 End While
                 dr.Close()
@@ -221,12 +245,16 @@
                             "icon:'../img/map_icon/cctv_black.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_nantou.push(marker_" & i & ");" & vbNewLine &
-                        "var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine &
-                            "content:'<iframe src=if_cctv_nantou.aspx?aid=" & dr.item("aid") & " width=600 height=400 frameborder=0></iframe>'" & vbNewLine &
-                        "});" & vbNewLine &
-                        "marker_" & i & ".addListener('click',function() {" & vbNewLine &
-                            "infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine &
-                        "});" & vbNewLine
+                        "var infowindow = null;" & vbNewLine &
+                        "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                            "if (infowindow) {" & vbNewLine &
+                                "infowindow.close();" & vbNewLine &
+                            "}" & vbNewLine &
+                            "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                                "content:'<iframe src=if_cctv_nantou.aspx?aid=" & dr.item("aid") & " width=400 height=300 frameborder=0></iframe>'" & vbNewLine &
+                            "});" & vbNewLine &
+                            "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                        "})" & vbNewLine
                     )
                 End While
                 dr.close()

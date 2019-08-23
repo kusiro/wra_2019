@@ -113,7 +113,7 @@ function initMap() {
         ElseIf dr.Item("color_num") = 3 Then
             Response.Write("icon:'../../img/map_icon/grey.png'," & vbNewLine)
         Else
-            Response.Write("icon:'../../img/map_icon/w.png'," & vbNewLine)
+            Response.Write("icon:'../../img/map_icon/w1.png'," & vbNewLine)
         End If
 
         Response.Write("});" & vbNewLine)
@@ -121,14 +121,19 @@ function initMap() {
         'icon
         Response.Write("markers_cctv_gov.push(marker_" & i & ");" & vbNewLine)
         'iframe
-        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-        Response.Write("content:'<iframe src=if_cctv_gov_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=1></iframe>'" & vbNewLine)
-        Response.write("})" & VBNewLine)
+        response.write(
+            "var infowindow = null;" & vbNewLine &
+            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                "if (infowindow) {" & vbNewLine &
+                    "infowindow.close();" & vbNewLine &
+                "}" & vbNewLine &
+                "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                    "content:'<iframe src=if_cctv_gov_mseg.aspx.aspx?aid=" & dr.Item("aid") & " width=400 height=300 frameborder=1></iframe>'" & vbNewLine &
+                "});" & vbNewLine &
+                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+            "})" & vbNewLine
+        )
 
-
-        Response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
-        response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
-        response.write("});" & VBNewLine)
     End While
     dr.Close()
     cmd.CommandText = "select * from cctv_taipei_t;"
@@ -146,7 +151,7 @@ function initMap() {
         ElseIf dr.Item("color_num") = 3 Then
             Response.Write("icon:'../../img/map_icon/grey.png'," & vbNewLine)
         Else
-            Response.Write("icon:'../../img/map_icon/w.png'," & vbNewLine)
+            Response.Write("icon:'../../img/map_icon/w1.png'," & vbNewLine)
         End If
 
         Response.Write("});" & vbNewLine)
@@ -154,14 +159,19 @@ function initMap() {
         'icon
         Response.Write("markers_cctv_taipei_t.push(marker_" & i & ");" & vbNewLine)
         'iframe
-        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-        Response.Write("content:'<iframe src=if_cctv_taipei_t_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=1></iframe>'" & vbNewLine)
-        Response.Write("})" & vbNewLine)
-
-
-        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-        Response.Write("});" & vbNewLine)
+        response.write(
+            "var infowindow = null;" & vbNewLine &
+            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                "if (infowindow) {" & vbNewLine &
+                    "infowindow.close();" & vbNewLine &
+                "}" & vbNewLine &
+                "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                    "content:'<iframe src=if_cctv_taipei_t_mseg.aspx?aid=" & dr.Item("aid") & " width=400 height=300 frameborder=1></iframe>'" & vbNewLine &
+                "});" & vbNewLine &
+                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+            "})" & vbNewLine
+        )
+        
     End While
     dr.Close()
     cmd.CommandText = "select * from cctv_tainan_t;"
@@ -179,7 +189,7 @@ function initMap() {
         ElseIf dr.Item("color_num") = 3 Then
             Response.Write("icon:'../../img/map_icon/grey.png'," & vbNewLine)
         Else
-            Response.Write("icon:'../../img/map_icon/w.png'," & vbNewLine)
+            Response.Write("icon:'../../img/map_icon/w1.png'," & vbNewLine)
         End If
 
         Response.Write("});" & vbNewLine)
@@ -187,14 +197,18 @@ function initMap() {
         'icon
         Response.Write("markers_cctv_tainan_t.push(marker_" & i & ");" & vbNewLine)
         'iframe
-        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-        Response.Write("content:'<iframe src=if_cctv_tainan_t_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=1></iframe>'" & vbNewLine)
-        Response.Write("})" & vbNewLine)
-
-
-        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-        Response.Write("});" & vbNewLine)
+        response.write(
+            "var infowindow = null;" & vbNewLine &
+            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                "if (infowindow) {" & vbNewLine &
+                    "infowindow.close();" & vbNewLine &
+                "}" & vbNewLine &
+                "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                    "content:'<iframe src=if_cctv_tainan_t_mseg.aspx?aid=" & dr.Item("aid") & " width=400 height=300 frameborder=1></iframe>'" & vbNewLine &
+                "});" & vbNewLine &
+                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+            "})" & vbNewLine
+        )
     End While
     dr.Close()
     cmd.CommandText = "select * from cctv_tainan_p;"
@@ -212,7 +226,7 @@ function initMap() {
         ElseIf dr.Item("color_num") = 3 Then
             Response.Write("icon:'../../img/map_icon/grey.png'," & vbNewLine)
         Else
-            Response.Write("icon:'../../img/map_icon/w.png'," & vbNewLine)
+            Response.Write("icon:'../../img/map_icon/w1.png'," & vbNewLine)
         End If
 
         Response.Write("});" & vbNewLine)
@@ -220,14 +234,18 @@ function initMap() {
         'icon
         Response.Write("markers_cctv_tainan_p.push(marker_" & i & ");" & vbNewLine)
         'iframe
-        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-        Response.Write("content:'<iframe src=if_cctv_tainan_p_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=1></iframe>'" & vbNewLine)
-        Response.Write("})" & vbNewLine)
-
-
-        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-        Response.Write("});" & vbNewLine)
+        response.write(
+            "var infowindow = null;" & vbNewLine &
+            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                "if (infowindow) {" & vbNewLine &
+                    "infowindow.close();" & vbNewLine &
+                "}" & vbNewLine &
+                "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                    "content:'<iframe src=if_cctv_tainan_p_mseg.aspx?aid=" & dr.Item("aid") & " width=400 height=300 frameborder=1></iframe>'" & vbNewLine &
+                "});" & vbNewLine &
+                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+            "})" & vbNewLine
+        )
     End While
     dr.Close()
     cmd.CommandText = "select * from cctv_taoyuan;"
@@ -245,7 +263,7 @@ function initMap() {
         ElseIf dr.Item("color_num") = 3 Then
             Response.Write("icon:'../../img/map_icon/grey.png'," & vbNewLine)
         Else
-            Response.Write("icon:'../../img/map_icon/w.png'," & vbNewLine)
+            Response.Write("icon:'../../img/map_icon/w1.png'," & vbNewLine)
         End If
 
         Response.Write("});" & vbNewLine)
@@ -253,14 +271,18 @@ function initMap() {
         'icon
         Response.Write("markers_cctv_taoyuan.push(marker_" & i & ");" & vbNewLine)
         'iframe
-        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-        Response.Write("content:'<iframe src=if_cctv_taoyuan_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=1></iframe>'" & vbNewLine)
-        Response.Write("})" & vbNewLine)
-
-
-        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-        Response.Write("});" & vbNewLine)
+        response.write(
+            "var infowindow = null;" & vbNewLine &
+            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                "if (infowindow) {" & vbNewLine &
+                    "infowindow.close();" & vbNewLine &
+                "}" & vbNewLine &
+                "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                    "content:'<iframe src=if_cctv_taoyuan_mseg.aspx?aid=" & dr.Item("aid") & " width=400 height=300 frameborder=1></iframe>'" & vbNewLine &
+                "});" & vbNewLine &
+                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+            "})" & vbNewLine
+        )
     End While
     dr.Close()
 
@@ -279,7 +301,7 @@ function initMap() {
         ElseIf dr.Item("color_num") = 3 Then
             Response.Write("icon:'../../img/map_icon/grey.png'," & vbNewLine)
         Else
-            Response.Write("icon:'../../img/map_icon/w.png'," & vbNewLine)
+            Response.Write("icon:'../../img/map_icon/w1.png'," & vbNewLine)
         End If
 
         Response.Write("});" & vbNewLine)
@@ -287,14 +309,18 @@ function initMap() {
         'icon
         Response.Write("markers_cctv_tycg.push(marker_" & i & ");" & vbNewLine)
         'iframe
-        Response.Write("var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine)
-        Response.Write("content:'<iframe src=if_cctv_tycg_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=1></iframe>'" & vbNewLine)
-        Response.Write("})" & vbNewLine)
-
-
-        Response.Write("marker_" & i & ".addListener('click',function() {" & vbNewLine)
-        Response.Write("infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine)
-        Response.Write("});" & vbNewLine)
+        response.write(
+            "var infowindow = null;" & vbNewLine &
+            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                "if (infowindow) {" & vbNewLine &
+                    "infowindow.close();" & vbNewLine &
+                "}" & vbNewLine &
+                "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                    "content:'<iframe src=if_cctv_tycg_mseg.aspx?aid=" & dr.Item("aid") & " width=400 height=300 frameborder=1></iframe>'" & vbNewLine &
+                "});" & vbNewLine &
+                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+            "})" & vbNewLine
+        )
     End While
     dr.Close()
     con.close()

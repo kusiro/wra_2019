@@ -20,12 +20,16 @@
                     "icon:'../img/map_icon/flood.png'," & vbNewLine &
                     "});" & vbNewLine &
                     "markers_rain_2016_05_16.push(marker_" & i & ");" & vbNewLine &
-                    "var infowindow_" & i & "=new google.maps.InfoWindow({" & vbNewLine &
-                    "content:'災害地點：" & dr.Item("災害地點") & "<br/>災情描述：" & dr.Item("災情描述") & "'" & vbNewLine &
-                    "})" & vbNewLine &
-                    "marker_" & i & ".addListener('click',function() {" & vbNewLine &
-                    "infowindow_" & i & ".open(map,marker_" & i & ");" & vbNewLine &
-                    "}, {passive: true});" & vbNewLine
+                    "var infowindow = null;" & vbNewLine &
+                    "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                        "if (infowindow) {" & vbNewLine &
+                            "infowindow.close();" & vbNewLine &
+                        "}" & vbNewLine &
+                        "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                            "content:'災害地點：" & dr.Item("災害地點") & "<br/>災情描述：" & dr.Item("災情描述") & "'" & vbNewLine &
+                        "});" & vbNewLine &
+                        "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                    "})" & vbNewLine
                 )
             End While
             dr.Close()

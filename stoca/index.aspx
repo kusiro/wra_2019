@@ -3,6 +3,7 @@
 <head>
     <title>WRA</title>
     <link rel="stylesheet" href="./style/main.css">
+    <link rel="icon" href="../cctv.png" type="image/x-icon" />
 </head>
 <body>
     <div id="app">

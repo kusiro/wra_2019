@@ -20,14 +20,18 @@
                 response.write("icon:'../img/map_icon/flood.png'," & VBNewLine)
                 response.write("});" & VBNewLine)
                 response.write("markers_rain_2017_06_13.push(marker_" & i & ");" & VBNewLine)
-
-                response.write("var infowindow_" & i & "=new google.maps.InfoWindow({" & VBNewLine)
-                response.write("content:'災害地點：" & dr.item("災害地點") & "<br/>災情描述：" & dr.item("災情描述") & "'" & VBNewLine)
-                response.write("})" & VBNewLine)
-
-                response.write("marker_" & i & ".addListener('click',function() {" & VBNewLine)
-                response.write("infowindow_" & i & ".open(map,marker_" & i & ");" & VBNewLine)
-                response.write("});" & VBNewLine)
+                response.write(
+                    "var infowindow = null;" & vbNewLine &
+                    "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                        "if (infowindow) {" & vbNewLine &
+                            "infowindow.close();" & vbNewLine &
+                        "}" & vbNewLine &
+                        "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                            "content:'災害地點：" & dr.Item("災害地點") & "<br/>災情描述：" & dr.Item("災情描述") & "'" & vbNewLine &
+                        "});" & vbNewLine &
+                        "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                    "})" & vbNewLine
+                )
             end while
             dr.close()
             con.close()
