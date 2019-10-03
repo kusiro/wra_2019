@@ -44,6 +44,7 @@
 	<h1>積淹水AI判釋燈號標記</h1>
 	<ol style="font-size:18px;font-weight:bold;">
 		<li><a href="./color_lamp/cctv_gov.aspx" target="R">CCTV 燈號標記</a></li>
+		<li><a href="./color_lamp/nowred.aspx" target="R">Nowred</a></li>
 	</ol>
 
 </form>

@@ -7,11 +7,10 @@
             Dim cmd As New MySqlCommand()
             cmd.Connection=con
             cmd.Parameters.AddWithValue("@aid",request.QueryString("aid"))
-            cmd.CommandText="select * from cctv_taipei_t where aid=@aid"
+            cmd.CommandText = "select * from nowred where aid=@aid"
             Dim dr As MySqlDataReader=cmd.ExecuteReader()
             If dr.read() Then
-                s = s & "<div style='font-size:18px;font-weight:bold;'>" & dr.Item("address").ToString() & "</div>"
-                s = s & "<iframe src='" & dr.Item("url") & "' style='width:450;height: 350;border: none;' allowfullscreen='True' webkitallowfullscreen='True' mozallowfullscreen='True'></iframe>"
+                s=s & "<div style='font-size:18px;font-weight:bold;'>" & dr.item("address").ToString() & "</div>"
                 s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: " & dr.Item("id") & "</h1>"
                 s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測時間: " & dr.Item("realtime") & "</h1>"
                 s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>IM_NAME: " & dr.Item("im_name") & "</h1>"

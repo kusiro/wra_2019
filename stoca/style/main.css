@@ -12,9 +12,20 @@ html,body{
     margin:0;
     padding:0;
 }
+.title {
+    position: absolute;
+    top: 70px;
+    left: 10px;
+    font-size: 20px;
+    letter-spacing: 1.2px;
+    z-index:5;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    
+}
 #floating-panel{
     position:absolute;
-    top:100px;
+    top:150px;
     left:10px;
     z-index:5;
     background-color:#fff;
@@ -37,17 +48,18 @@ html,body{
 }
 
 .event {
-    flex: 1;
+    width: 250px
 }
 .map {
-    flex: 11;
+    flex: 12;
 }
 
 .searchBox {
     position: absolute;
     z-index: 5;
     top: 25px;
-    left: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #fff;
     font-family: Roboto;
     border-bottom: 1px solid #DADCE0;
@@ -82,3 +94,4 @@ html,body{
     width: 23px;
     display: block;
 }
+

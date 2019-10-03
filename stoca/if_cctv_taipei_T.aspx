@@ -11,7 +11,7 @@
             Dim dr As MySqlDataReader=cmd.ExecuteReader()
             If dr.read() Then
                 s = s & "<div style='font-size:18px;font-weight:bold;'>" & dr.Item("address").ToString() & "</div>"
-                s = s & "<iframe src='" & dr.Item("url") & "' width=480 height=480 frameborder=0></iframe>"
+                s = s & "<iframe src='" & dr.Item("url") & "' style='width:450px;height: 350px;border: none;' allowfullscreen='True' webkitallowfullscreen='True' mozallowfullscreen='True'></iframe>"
                 s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: " & dr.Item("id") & "</h3>"
                 s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測時間: " & dr.Item("realtime") & "</h3>"
                 s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>IM_NAME: " & dr.Item("im_name") & "</h3>"
