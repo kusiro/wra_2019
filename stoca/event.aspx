@@ -41,12 +41,16 @@
 		
 	</ol>
 
-	<h1>積淹水AI判釋燈號標記</h1>
+	<h1>積淹水AI判釋燈號標記系統</h1>
 	<ol style="font-size:18px;font-weight:bold;">
 		<li><a href="./color_lamp/cctv_gov.aspx" target="R">CCTV 燈號標記</a></li>
-		<li><a href="./color_lamp/nowred.aspx" target="R">Nowred</a></li>
+		<li><a href="./color_lamp/nowred.aspx" target="R">NOWRED 目前淹水點位(功能測試中)</a></li>
 	</ol>
-
+    
+	<h1>積淹水高度判釋系統</h1>
+	<ol style="font-size:18px;font-weight:bold;">
+		<li><a href="./color_lamp/line.aspx" target="R">行動測站&LINE通報</a></li>
+	</ol>
 </form>
 
 </body>

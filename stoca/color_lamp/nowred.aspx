@@ -4,7 +4,7 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
 <link rel="stylesheet" href="../style/main.css">
-<title>道路積淹水影像偵測系統</title>
+<title>即時積淹水點位展示</title>
 <style>
 .icon {
     position: absolute;
@@ -21,7 +21,7 @@
 </style>
 </head>
 <body style="font-family:微軟正黑體">
-<h1 class="title">道路積淹水影像偵測系統</h1>
+<h1 class="title">即時積淹水點位</h1>
 <div class="searchBox">
     <input id="pac-input" class="controls" type="text" placeholder="搜尋 google 地圖" aria-label="搜尋 google 地圖">
     <div class="searchBottom"></div>
@@ -84,7 +84,8 @@ function initMap() {
             'map
             Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
             Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-            Response.Write("icon:'../../img/map_icon/r.png'," & vbNewLine)
+            Response.Write("icon:{scaledSize: new google.maps.Size(30, 30)}," & vbNewLine)
+            Response.Write("label: '"&dr.Item("key")&"'" & vbNewLine)
             Response.Write("});" & vbNewLine)
 
             'icon
@@ -120,7 +121,10 @@ function initMap() {
 
 
 <script>
-    for (var i = 0; i < markers_cctv_nowred.length; i++) {
-        markers_cctv_nowred[i].setMap(map);
+    window.onload = () => {
+            for (var i = 0; i < markers_cctv_nowred.length; i++) {
+            markers_cctv_nowred[i].setMap(map);
+            console.log(i)
+        }
     }
 </script>

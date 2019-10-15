@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="./style/main.css">
     </head>
 <body>
-    <h1 class="title">道路積淹水影像偵測系統</h1>
+    <h1 class="title">豪雨事件災點</h1>
     <div id="floating-panel">
         <asp:ContentPlaceHolder ID="input" runat="server">
         </asp:ContentPlaceHolder>

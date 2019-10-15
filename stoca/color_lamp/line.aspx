@@ -4,7 +4,7 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
 <link rel="stylesheet" href="../style/main.css">
-<title>道路積淹水影像偵測系統</title>
+<title>道路積淹水高度判釋系統</title>
 <style>
 .icon {
     position: absolute;
@@ -21,9 +21,9 @@
 </style>
 </head>
 <body style="font-family:微軟正黑體">
-<h1 class="title">道路積淹水影像偵測系統</h1>
+<h1 class="title">道路積淹水高度判釋系統</h1>
 <div id="floating-panel">
-    <input type="checkbox" id="CB_cctv_taipei_t" onclick="toggle_cctv_taipei_t();"> CCTV 新北市 交通局<br/>
+<!--    <input type="checkbox" id="CB_cctv_taipei_t" onclick="toggle_cctv_taipei_t();"> CCTV 新北市 交通局<br/>
     <input type="checkbox" id="CB_cctv_tainan_t" onclick="toggle_cctv_tainan_t();"> CCTV 台南市 交通局<br/>
     <input type="checkbox" id="CB_cctv_tainan_p" onclick="toggle_cctv_tainan_p();"> CCTV 台南市 警察局<br/>
     <input type="checkbox" id="CB_cctv_taoyuan" onclick="toggle_cctv_taoyuan();"> CCTV 桃園市 交通局<br/>
@@ -31,15 +31,16 @@
     <input type="checkbox" id="CB_cctv_tycg" onclick="toggle_cctv_tycg();"> CCTV 桃園智慧下水道<br/>
     <input type="checkbox" id="CB_ilang" onclick="toggle_ilang();"> 宜蘭縣智慧立桿<br/>
     <input type="checkbox" id="CB_nantou" onclick="toggle_nantou();"> CCTV 南投市 交通局<br/>
-	<input type="checkbox" id="CB_cctv_kaohsiung" onclick="toggle_cctv_kaohsiung();"> CCTV 高雄市 交通局<br/>
-<!--	<input type="checkbox" id="CB_cctv_line" onclick="toggle_cctv_line();"> Line Robot 警示訊息<br/>
-	<input type="checkbox" id="CB_cctv_mobile" onclick="toggle_cctv_mobile();"> 行動測站<br/>  -->
+	<input type="checkbox" id="CB_cctv_kaohsiung" onclick="toggle_cctv_kaohsiung();"> CCTV 高雄市 交通局<br/>  -->
+	<input type="checkbox" id="CB_cctv_line" onclick="toggle_cctv_line();"> Line Robot 警示訊息<br/>
+	<input type="checkbox" id="CB_cctv_mobile" onclick="toggle_cctv_mobile();"> 行動測站<br/>
+	<input type="checkbox" id="CB_cctv_26height" onclick="toggle_cctv_26height();"> CCTV 26處測站(功能測試中)<br/>
 </div>
 <div class="searchBox">
     <input id="pac-input" class="controls" type="text" placeholder="搜尋 google 地圖" aria-label="搜尋 google 地圖">
     <div class="searchBottom"></div>
 </div>
-
+<!--
 <div class="icon">
     <div style="height:15px;margin: 0 10px 0 0;font-size: 13px;">
         <img src="../../img/map_icon/g.png" style="height:100%;vertical-align:middle;" />
@@ -58,7 +59,7 @@
        無資料
     </div>
 </div>
-
+-->
 <div id="map"></div>
 
 
@@ -74,6 +75,7 @@ var markers_cctv_line = [];
 var markers_ilang = [],
     markers_cctv_nantou = [];
 var markers_cctv_mobile = [];
+var markers_cctv_26height = [];
 var markers_cctv_kaohsiung = [];
 var map;
 function initMap() {
@@ -497,6 +499,46 @@ function initMap() {
         End While
         dr.Close()
 
+		cmd.CommandText = "select * from 26height_site;"
+        dr = cmd.ExecuteReader()
+        While dr.Read()
+            i = i + 1
+            'map
+            Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+            Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+            If dr.Item("color_num") = 1 Then
+                Response.Write("icon:'../../img/map_icon/g.png'," & vbNewLine)
+            ElseIf dr.Item("color_num") = 2 Then
+                Response.Write("icon:'../../img/map_icon/r.png'," & vbNewLine)
+            ElseIf dr.Item("color_num") = 3 Then
+                Response.Write("icon:'../../img/map_icon/grey.png'," & vbNewLine)
+            ElseIf dr.Item("color_num") = 0 Then
+                Response.Write("icon:'../../img/map_icon/w.png'," & vbNewLine)
+			Else
+                Response.Write("icon:'../../img/map_icon/y.png'," & vbNewLine)
+            End If
+
+            Response.Write("});" & vbNewLine)
+
+            'icon
+            Response.Write("markers_cctv_26height.push(marker_" & i & ");" & vbNewLine)
+            'iframe
+            response.write(
+                "var infowindow = null;" & vbNewLine &
+                "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                    "if (infowindow) {" & vbNewLine &
+                        "infowindow.close();" & vbNewLine &
+                    "}" & vbNewLine &
+                    "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                        "content:'<iframe src=if_cctv_26height_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=0></iframe>'," & vbNewLine &
+                        "maxmaxWidth: 600" & vbNewLine &
+                    "});" & vbNewLine &
+                    "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                "})" & vbNewLine
+            )
+        End While
+        dr.Close()
+
         cmd.CommandText = "select * from cctv_kaohsiung;"
         dr = cmd.ExecuteReader()
         While dr.Read()
@@ -664,6 +706,17 @@ function initMap() {
         }
     }
 
+	function toggle_cctv_26height() {
+        if (document.getElementById('CB_cctv_26height').checked) {
+            for (var i = 0; i < markers_cctv_26height.length; i++) {
+                markers_cctv_26height[i].setMap(map);
+            }
+        } else {
+            for (var i = 0; i < markers_cctv_26height.length; i++) {
+                markers_cctv_26height[i].setMap(null);
+            }
+        }
+    }
     function toggle_cctv_kaohsiung() {
         if (document.getElementById('CB_cctv_kaohsiung').checked) {
             for (var i = 0; i < markers_cctv_kaohsiung.length; i++) {
