@@ -18,23 +18,29 @@
     background-color: rgba(255, 255, 255, 0.7);
     z-index: 5;
 }
+form {
+    margin-top: 1em;
+    text-align: right;
+    vertical-align: middle;
+}
+form input {
+    margin: 0.6em 0;
+    padding: 0.75em;
+    border-radius: 5px;
+    border: solid 1px #b4b4b4;
+}
 </style>
 </head>
 <body style="font-family:微軟正黑體">
 <h1 class="title">道路積淹水高度判釋系統</h1>
 <div id="floating-panel">
-<!--    <input type="checkbox" id="CB_cctv_taipei_t" onclick="toggle_cctv_taipei_t();"> CCTV 新北市 交通局<br/>
-    <input type="checkbox" id="CB_cctv_tainan_t" onclick="toggle_cctv_tainan_t();"> CCTV 台南市 交通局<br/>
-    <input type="checkbox" id="CB_cctv_tainan_p" onclick="toggle_cctv_tainan_p();"> CCTV 台南市 警察局<br/>
-    <input type="checkbox" id="CB_cctv_taoyuan" onclick="toggle_cctv_taoyuan();"> CCTV 桃園市 交通局<br/>
-    <input type="checkbox" id="CB_cctv_gov" onclick="toggle_cctv_gov();"> CCTV 公路總局<br/>
-    <input type="checkbox" id="CB_cctv_tycg" onclick="toggle_cctv_tycg();"> CCTV 桃園智慧下水道<br/>
-    <input type="checkbox" id="CB_ilang" onclick="toggle_ilang();"> 宜蘭縣智慧立桿<br/>
-    <input type="checkbox" id="CB_nantou" onclick="toggle_nantou();"> CCTV 南投市 交通局<br/>
-	<input type="checkbox" id="CB_cctv_kaohsiung" onclick="toggle_cctv_kaohsiung();"> CCTV 高雄市 交通局<br/>  -->
 	<input type="checkbox" id="CB_cctv_line" onclick="toggle_cctv_line();"> Line Robot 警示訊息<br/>
 	<input type="checkbox" id="CB_cctv_mobile" onclick="toggle_cctv_mobile();"> 行動測站<br/>
-	<input type="checkbox" id="CB_cctv_26height" onclick="toggle_cctv_26height();"> CCTV 26處測站(功能測試中)<br/>
+    <input type="checkbox" id="CB_cctv_26height" onclick="toggle_cctv_26height();"> CCTV 26處測站(功能測試中)<br/>
+    <form>
+        start : <input type="datetime-local" value="2015-01-01T00:00" min="2015-01-01T00:00" name="start-time"><br/>
+        end : <input type="datetime-local" value="2019-12-31T00:00" min="2019-12-31T00:00" name="end-time">
+    </form>
 </div>
 <div class="searchBox">
     <input id="pac-input" class="controls" type="text" placeholder="搜尋 google 地圖" aria-label="搜尋 google 地圖">

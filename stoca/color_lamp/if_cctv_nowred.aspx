@@ -10,23 +10,27 @@
             cmd.CommandText = "select * from nowred where aid=@aid"
             Dim dr As MySqlDataReader=cmd.ExecuteReader()
             If dr.read() Then
-                s=s & "<div style='font-size:18px;font-weight:bold;'>" & dr.item("address").ToString() & "</div>"
-                s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: " & dr.Item("id") & "</h1>"
+                Dim station As String = dr.item("id")
+                s = s & "<div style='font-size:18px;font-weight:bold;'>" & dr.item("address").ToString() & "</div>"
+                If station.Substring(0,7) = "thbCCTV" Then
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 公路總局</h1>"
+                ElseIf station.Substring(0,3) = "TNb" Then
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 台南市 警察局</h1>"
+                ElseIf station.Substring(0,3) = "TNa" Then
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 台南市 交通局</h1>"
+                ElseIf station.Substring(0,3) = "C00" Then
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 新北市 交通局</h1>"
+                ElseIf station.Substring(0,2) = "TY" Then
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 桃園市 交通局</h1>"
+                ElseIf station.Substring(0,2) = "NT" Then
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 南投市 交通局</h1>"
+                ElseIf station.Substring(0,4) = "6400" Then
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 高雄市 交通局</h1>"
+                Else
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 桃園智慧下水道</h1>"
+                End If
                 s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測時間: " & dr.Item("realtime") & "</h1>"
-                s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>IM_NAME: " & dr.Item("im_name") & "</h1>"
-
-                s = s & "<table style:'border: 1px solid black;'>"
-                s = s & "<tr style:'border: 1px solid black;'>"
-                s = s & "<th style='line-height: 1.2em;border: 1px solid black;padding: 8px;margin: 0;'>normal</th>"
-                s = s & "<th style='line-height: 1.2em;border: 1px solid black;padding: 8px;margin: 0;'>floods</th>"
-                s = s & "<th style='line-height: 1.2em;border: 1px solid black;padding: 8px;margin: 0;'>unknow</th>"
-                s = s & "</tr>"
-                s = s & "<tr style:'border: 1px solid black;'>"
-                s = s & "<td style='line-height: 1.2em;text-align: center;border: 1px solid black;padding: 8px;margin: 0;'>" & dr.Item("normal") & "</td>"
-                s = s & "<td style='line-height: 1.2em;text-align: center;border: 1px solid black;padding: 8px;margin: 0;'>" & dr.Item("floods") & "</td>"
-                s = s & "<td style='line-height: 1.2em;text-align: center;border: 1px solid black;padding: 8px;margin: 0;'>" & dr.Item("unknow") & "</td>"
-                s = s & "</tr>"
-                s = s & "</table>"
+                s = s & "<img src='" & dr.Item("url") & "' style='max-width:100%'>"
                 dr.close()
                 con.close()
                 con.dispose()
