@@ -1,6 +1,6 @@
 <%@ Page Title="" Language="vb" AutoEventWireup="false"  MasterPageFile="./main.Master"%>
 <asp:Content ID="input" ContentPlaceHolderID="input" runat="server">
-    <input type="checkbox" id="CB_rain_2016_莫蘭蒂" onclick="toggle_rain_2016_莫蘭蒂();" checked> 2016 莫蘭蒂<br />
+    <input type="checkbox" id="CB_rain_2016_莫蘭蒂" onclick="toggle_rain_2016_莫蘭蒂();" checked> 2016 莫蘭蒂
 </asp:Content>
 <asp:Content ID="script" ContentPlaceHolderID="script" runat="server">
         

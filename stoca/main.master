@@ -3,26 +3,56 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
-        <title>豪雨災點</title>
-        <link rel="stylesheet" href="./style/main.css">
-    </head>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>豪雨災點</title>
+    <link rel="stylesheet" href="./style/main.css">
+</head>
 <body>
     <h1 class="title">豪雨事件災點</h1>
     <div id="floating-panel">
-        <asp:ContentPlaceHolder ID="input" runat="server">
-        </asp:ContentPlaceHolder>
-        <input type="checkbox" id="CB_cctv_taipei_t" onclick="toggle_cctv_taipei_t();"> CCTV 台北市 交通局<br/>
-        <input type="checkbox" id="CB_cctv_tainan_t" onclick="toggle_cctv_tainan_t();"> CCTV 台南市 交通局<br/>
-        <input type="checkbox" id="CB_cctv_tainan_p" onclick="toggle_cctv_tainan_p();"> CCTV 台南市 警察局<br/>
-        <input type="checkbox" id="CB_cctv_taoyuan" onclick="toggle_cctv_taoyuan();"> CCTV 桃園市<br/>
-        <input type="checkbox" id="CB_cctv_gov" onclick="toggle_cctv_gov();"> CCTV 公路總局<br/>
-        <input type="checkbox" id="CB_ilan" onclick="toggle_ilan();"> 宜蘭縣智慧立桿<br/>
-        <input type="checkbox" id="CB_nantou" onclick="toggle_nantou();"> CCTV 南投市 交通局<br/>
-        <input type="checkbox" id="CB_cctv_tycg" onclick="toggle_cctv_tycg();"> CCTV 桃園智慧下水道<br/>
-        <input type="checkbox" id="CB_kaohsiung" onclick="toggle_kaohsiung();"> CCTV 高雄市 交通局<br/>
+        <div class="panel-item">
+            <asp:ContentPlaceHolder ID="input" runat="server">
+            </asp:ContentPlaceHolder>
+            <img src="../../img/map_icon/ishou.png"/><br/>
+        </div>
+        <div class="panel-item">
+            <input type="checkbox" id="CB_cctv_taipei_t" onclick="toggle_cctv_taipei_t();"> CCTV 台北市 交通局
+            <img src="../../img/map_icon/cctv_yellow.png"/><br/>
+        </div>
+        <div class="panel-item">
+            <input type="checkbox" id="CB_cctv_tainan_t" onclick="toggle_cctv_tainan_t();"> CCTV 台南市 交通局
+            <img src="../../img/map_icon/cctv_red.png"/><br/>
+        </div>
+        <div class="panel-item">
+            <input type="checkbox" id="CB_cctv_tainan_p" onclick="toggle_cctv_tainan_p();"> CCTV 台南市 警察局
+            <img src="../../img/map_icon/cctv_ground.png"/><br/>
+        </div>
+        <div class="panel-item">
+            <input type="checkbox" id="CB_cctv_taoyuan" onclick="toggle_cctv_taoyuan();"> CCTV 桃園市
+            <img src="../../img/map_icon/cctv_lightGreen.png"/><br/>
+        </div>
+        <div class="panel-item">
+            <input type="checkbox" id="CB_cctv_gov" onclick="toggle_cctv_gov();"> CCTV 公路總局
+            <img src="../../img/map_icon/cctv.png"/><br/>
+        </div>
+        <div class="panel-item">
+            <input type="checkbox" id="CB_nantou" onclick="toggle_nantou();"> CCTV 南投市 交通局
+            <img src="../../img/map_icon/cctv_black.png"/><br/>
+        </div>
+        <div class="panel-item">
+            <input type="checkbox" id="CB_cctv_tycg" onclick="toggle_cctv_tycg();"> CCTV 桃園智慧下水道
+            <img src="../../img/map_icon/cctv_purple.png"/><br/>
+        </div>
+        <div class="panel-item">
+            <input type="checkbox" id="CB_kaohsiung" onclick="toggle_kaohsiung();"> CCTV 高雄市 交通局
+            <img src="../../img/map_icon/cctv_orange.png"/><br/>
+        </div>
+        <div class="panel-item">
+            <input type="checkbox" id="CB_ilan" onclick="toggle_ilan();"> 宜蘭縣智慧立桿
+            <img src="../../img/map_icon/powerlinepole.png"/><br/>
+        </div>
     </div>
     
     <div class="searchBox">
@@ -96,7 +126,7 @@
                     Response.Write(
                         "var marker_" & i & "=new google.maps.Marker({" & vbNewLine &
                             "position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine &
-                            "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
+                            "icon:'../img/map_icon/cctv_yellow.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_taipei_t.push(marker_" & i & ");" & vbNewLine &
                         "var infowindow = null;" & vbNewLine &
@@ -121,7 +151,7 @@
                     Response.Write(
                         "var marker_" & i & "=new google.maps.Marker({" & vbNewLine &
                             "position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine &
-                            "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
+                            "icon:'../img/map_icon/cctv_red.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_tainan_t.push(marker_" & i & ");" & vbNewLine &
                         "var infowindow = null;" & vbNewLine &
@@ -145,7 +175,7 @@
                     Response.Write(
                         "var marker_" & i & "=new google.maps.Marker({" & vbNewLine &
                             "position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine &
-                            "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
+                            "icon:'../img/map_icon/cctv_ground.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_tainan_p.push(marker_" & i & ");" & vbNewLine &
                         "var infowindow = null;" & vbNewLine &
@@ -169,7 +199,7 @@
                     Response.Write(
                         "var marker_" & i & "=new google.maps.Marker({" & vbNewLine &
                             "position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine &
-                            "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
+                            "icon:'../img/map_icon/cctv_lightGreen.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_taoyuan.push(marker_" & i & ");" & vbNewLine &
                         "var infowindow = null;" & vbNewLine &
@@ -193,7 +223,7 @@
                     Response.Write(
                         "var marker_" & i & "=new google.maps.Marker({" & vbNewLine &
                             "position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine &
-                            "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
+                            "icon:'../img/map_icon/cctv.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_gov.push(marker_" & i & ");" & vbNewLine &
                         "var infowindow = null;" & vbNewLine &
@@ -264,7 +294,7 @@
                     Response.Write(
                         "var marker_" & i & "=new google.maps.Marker({" & vbNewLine &
                             "position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine &
-                            "icon:'../img/map_icon/cctv_black.png'," & vbNewLine &
+                            "icon:'../img/map_icon/cctv_orange.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_kaohsiung.push(marker_" & i & ");" & vbNewLine &
                         "var infowindow = null;" & vbNewLine &
@@ -288,7 +318,7 @@
                     Response.Write(
                         "var marker_" & i & "=new google.maps.Marker({" & vbNewLine &
                             "position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine &
-                            "icon:'../img/map_icon/cctv_black.png'," & vbNewLine &
+                            "icon:'../img/map_icon/cctv_purple.png'," & vbNewLine &
                         "});" & vbNewLine &
                         "markers_cctv_tycg.push(marker_" & i & ");" & vbNewLine &
                         "var infowindow = null;" & vbNewLine &

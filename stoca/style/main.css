@@ -26,6 +26,7 @@ html,body{
 #floating-panel{
     position:absolute;
     top:150px;
+    width: 250px;
     left:10px;
     z-index:5;
     background-color:#fff;
@@ -35,7 +36,15 @@ html,body{
     font-size:18px;
     font-weight:bold;
 }
-
+.panel-item {
+    width: 100%;
+}
+.panel-item img {
+    margin-top: 4px;
+    position: absolute;
+    height: 1.2em;
+    right: 1em;
+}
 @media only screen and (max-width: 479px){
     #floating-panel{
         font-size:12px;
