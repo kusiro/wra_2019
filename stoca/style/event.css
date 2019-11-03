@@ -13,7 +13,18 @@ ol {
     list-style: circle;
     padding-left: 30px;
 }
-
+.expenBtn {
+    font-weight: bold;
+    height: 1.8em;
+    margin-top: 1.4em;
+    border-bottom: solid 1px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.expen {
+    height: initial;
+    transition: 0.5s;
+}
 li {
     font-size: 16px;
     line-height: 1.5em;
@@ -23,3 +34,4 @@ li {
 a {
     text-decoration: none;
 }
+
