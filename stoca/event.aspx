@@ -78,6 +78,12 @@
 	<ol style="font-size:18px;font-weight:bold;">
 		<li><a href="./color_lamp/line.aspx" target="R">行動測站&LINE通報</a></li>
 	</ol>
+	
+	<h1>水利署CCTV測站分布預覽圖</h1>
+		<ol style="font-size:18px;font-weight:bold;">
+		<li><a href="http://fmg.wra.gov.tw:8080/fmg/sn/googlemap2/snmap2019.php" target="R">水利署CCTV測站(整合google map)</a></li>
+		<li><a href="http://fmg.wra.gov.tw:8080/fmg/sn/googlemap2/TGOS_MAP_API/snmap_tgos2019.php" target="R">水利署CCTV測站(整合TGOS底圖)</a></li>
+	</ol>
 </form>
 
 </body>
