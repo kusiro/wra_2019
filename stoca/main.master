@@ -15,43 +15,43 @@
         <div class="panel-item">
             <asp:ContentPlaceHolder ID="input" runat="server">
             </asp:ContentPlaceHolder>
-            <img src="../../img/map_icon/ishou.png"/><br/>
+            <img src="../img/map_icon/ishou.png"/><br/>
         </div>
         <div class="panel-item">
-            <input type="checkbox" id="CB_cctv_taipei_t" onclick="toggle_cctv_taipei_t();"> CCTV 台北市 交通局
-            <img src="../../img/map_icon/cctv_yellow.png"/><br/>
+            <input type="checkbox" id="CB_cctv_taipei_t" onclick="toggle_cctv_taipei_t();"> CCTV 新北市 交通局
+            <img src="../img/map_icon/cctv_yellow.png"/><br/>
         </div>
         <div class="panel-item">
             <input type="checkbox" id="CB_cctv_tainan_t" onclick="toggle_cctv_tainan_t();"> CCTV 台南市 交通局
-            <img src="../../img/map_icon/cctv_red.png"/><br/>
+            <img src="../img/map_icon/cctv_red.png"/><br/>
         </div>
         <div class="panel-item">
             <input type="checkbox" id="CB_cctv_tainan_p" onclick="toggle_cctv_tainan_p();"> CCTV 台南市 警察局
-            <img src="../../img/map_icon/cctv_ground.png"/><br/>
+            <img src="../img/map_icon/cctv_ground.png"/><br/>
         </div>
         <div class="panel-item">
             <input type="checkbox" id="CB_cctv_taoyuan" onclick="toggle_cctv_taoyuan();"> CCTV 桃園市
-            <img src="../../img/map_icon/cctv_lightGreen.png"/><br/>
+            <img src="../img/map_icon/cctv_lightGreen.png"/><br/>
         </div>
         <div class="panel-item">
             <input type="checkbox" id="CB_cctv_gov" onclick="toggle_cctv_gov();"> CCTV 公路總局
-            <img src="../../img/map_icon/cctv.png"/><br/>
+            <img src="../img/map_icon/cctv.png"/><br/>
         </div>
         <div class="panel-item">
             <input type="checkbox" id="CB_nantou" onclick="toggle_nantou();"> CCTV 南投市 交通局
-            <img src="../../img/map_icon/cctv_black.png"/><br/>
+            <img src="../img/map_icon/cctv_black.png"/><br/>
         </div>
         <div class="panel-item">
             <input type="checkbox" id="CB_cctv_tycg" onclick="toggle_cctv_tycg();"> CCTV 桃園智慧下水道
-            <img src="../../img/map_icon/cctv_purple.png"/><br/>
+            <img src="../img/map_icon/cctv_purple.png"/><br/>
         </div>
         <div class="panel-item">
             <input type="checkbox" id="CB_kaohsiung" onclick="toggle_kaohsiung();"> CCTV 高雄市 交通局
-            <img src="../../img/map_icon/cctv_orange.png"/><br/>
+            <img src="../img/map_icon/cctv_orange.png"/><br/>
         </div>
         <div class="panel-item">
             <input type="checkbox" id="CB_ilan" onclick="toggle_ilan();"> 宜蘭縣智慧立桿
-            <img src="../../img/map_icon/powerlinepole.png"/><br/>
+            <img src="../img/map_icon/powerlinepole.png"/><br/>
         </div>
     </div>
     

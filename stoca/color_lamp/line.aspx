@@ -6,67 +6,48 @@
 <link rel="stylesheet" href="../style/main.css">
 <title>道路積淹水高度判釋系統</title>
 <style>
-    .icon {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        flex-wrap: nowrap;
-        left: 13px;
-        top: 530px;
-        padding: 10px;
-        background-color: rgba(255, 255, 255, 0.7);
-        z-index: 5;
-    }
-    form {
-        margin-top: 1em;
-        text-align: right;
-        vertical-align: middle;
-    }
-    form input {
-        margin: 0.6em 0;
-        padding: 0.75em;
-        border-radius: 5px;
-        border: solid 1px #b4b4b4;
-    }
-    .panel-item {
-        width: 100%;
-    }
-    .panel-item img {
-        position: absolute;
-        height: 1em;
-        right: 1em;
-    }
+.icon {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    left: 13px;
+    top: 530px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 5;
+}
+form {
+    margin-top: 1em;
+    text-align: right;
+    vertical-align: middle;
+}
+form input {
+    margin: 0.6em 0;
+    padding: 0.75em;
+    border-radius: 5px;
+    border: solid 1px #b4b4b4;
+}
 </style>
 </head>
 <body style="font-family:微軟正黑體">
-<h1 class="title">道路積淹水高度判釋系統</h1>
+<h1 class="title">道路積淹水深度判釋系統</h1>
 <div id="floating-panel">
-    <div class="panel-item">
-        <input type="checkbox" id="CB_cctv_line" onclick="toggle_cctv_line();">
-        Line Robot 警示訊息
-        <img src="../../img/map_icon/p.png"/><br/>
-    </div>
-    <div class="panel-item">
-        <input type="checkbox" id="CB_cctv_mobile" onclick="toggle_cctv_mobile();"> 行動測站
-        <img src="../../img/map_icon/y.png"/><br/>
-    </div>
-    <div class="panel-item">
-        <input type="checkbox" id="CB_cctv_26height" onclick="toggle_cctv_26height();"> CCTV 26處測站(功能測試中)
-        <img src="../../img/map_icon/g.png"/><br/>
-    </div>
-	
-    
+	<input type="checkbox" id="CB_cctv_line" onclick="toggle_cctv_line();"> Line Robot 警示訊息<br/>
+	<input type="checkbox" id="CB_cctv_mobile" onclick="toggle_cctv_mobile();"> 行動測站<br/>
+    <input type="checkbox" id="CB_cctv_26height" onclick="toggle_cctv_26height();"> CCTV 26處測站<br/>(日曆功能測試中)<br/>
     <form>
         start : <input type="datetime-local" value="2015-01-01T00:00" min="2015-01-01T00:00" name="start-time"><br/>
         end : <input type="datetime-local" value="2019-12-31T00:00" min="2019-12-31T00:00" name="end-time">
     </form>
 </div>
+<!--
 <div class="searchBox">
     <input id="pac-input" class="controls" type="text" placeholder="搜尋 google 地圖" aria-label="搜尋 google 地圖">
     <div class="searchBottom"></div>
 </div>
-<!--
+-->
 <div class="icon">
     <div style="height:15px;margin: 0 10px 0 0;font-size: 13px;">
         <img src="../../img/map_icon/g.png" style="height:100%;vertical-align:middle;" />
@@ -76,16 +57,8 @@
         <img src="../../img/map_icon/r.png" style="height:100%;vertical-align:middle;" />
        淹水
     </div>
-    <div style="height:15px;margin: 0 10px 0 0;font-size: 13px;">
-        <img src="../../img/map_icon/grey.png" style="height:100%;vertical-align:middle;" />
-       unknow
-    </div>
-    <div style="height:15px;margin: 0 10px 0 0;font-size: 13px;">
-        <img src="../../img/map_icon/w.png" style="height:100%;vertical-align:middle;" />
-       無資料
-    </div>
 </div>
--->
+
 <div id="map"></div>
 
 
@@ -107,7 +80,10 @@ var map;
 function initMap() {
 	map=new google.maps.Map(document.getElementById('map'), {
                 zoom:8,
-                center: { lat: 23.5, lng: 121 }
+                center: { lat: 23.5, lng: 121 },
+				mapTypeControl: false,
+				streetViewControl: false,
+				zoomControl: false
             });
             
     //search box

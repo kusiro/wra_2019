@@ -13,21 +13,21 @@
                 Dim station As String = dr.item("id")
                 s = s & "<div style='font-size:18px;font-weight:bold;'>" & dr.item("address").ToString() & "</div>"
                 If station.Substring(0,7) = "thbCCTV" Then
-                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 公路總局</h1>"
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>測站單位: CCTV 公路總局</h1>"
                 ElseIf station.Substring(0,3) = "TNb" Then
-                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 台南市 警察局</h1>"
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>測站單位: CCTV 台南市 警察局</h1>"
                 ElseIf station.Substring(0,3) = "TNa" Then
-                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 台南市 交通局</h1>"
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>測站單位: CCTV 台南市 交通局</h1>"
                 ElseIf station.Substring(0,3) = "C00" Then
-                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 新北市 交通局</h1>"
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>測站單位: CCTV 新北市 交通局</h1>"
                 ElseIf station.Substring(0,2) = "TY" Then
-                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 桃園市 交通局</h1>"
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>測站單位: CCTV 桃園市 交通局</h1>"
                 ElseIf station.Substring(0,2) = "NT" Then
-                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 南投市 交通局</h1>"
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>測站單位: CCTV 南投市 交通局</h1>"
                 ElseIf station.Substring(0,4) = "6400" Then
-                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 高雄市 交通局</h1>"
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>測站單位: CCTV 高雄市 交通局</h1>"
                 Else
-                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測站: CCTV 桃園智慧下水道</h1>"
+                    s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>測站單位: CCTV 桃園智慧下水道</h1>"
                 End If
                 s = s & "<h3 style='line-height: 1.2em;margin: 0.2em 0;font-size: 16px;'>觀測時間: " & dr.Item("realtime") & "</h1>"
                 s = s & "<img src='" & dr.Item("url") & "' style='max-width:100%'>"

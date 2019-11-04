@@ -1,0 +1,68 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+wra_2019
+</name>
+</assembly>
+<members>
+<member name="T:wra_2019.My.MyWebExtension">
+ <summary>
+ 用來定義可用於 Web 專案 My 命名空間中之屬性的模組。
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:wra_2019.My.MyWebExtension.Computer">
+ <summary>
+ 傳回主機電腦的資訊。
+ </summary>
+</member>
+<member name="P:wra_2019.My.MyWebExtension.User">
+ <summary>
+ 傳回目前 Web 使用者的資訊。
+ </summary>
+</member>
+<member name="P:wra_2019.My.MyWebExtension.Request">
+ <summary>
+ 傳回要求物件。
+ </summary>
+</member>
+<member name="P:wra_2019.My.MyWebExtension.Response">
+ <summary>
+ 傳回回應物件。
+ </summary>
+</member>
+<member name="P:wra_2019.My.MyWebExtension.Log">
+ <summary>
+ 傳回 Asp 記錄物件。
+ </summary>
+</member>
+<member name="F:wra_2019.master._checkbox1">
+<summary>
+checkbox1 控制項。
+</summary>
+<remarks>
+自動產生的欄位。
+若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+</remarks>
+</member>
+<member name="F:wra_2019.master._script1">
+<summary>
+script1 控制項。
+</summary>
+<remarks>
+自動產生的欄位。
+若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+</remarks>
+</member>
+<member name="F:wra_2019.master._script2">
+<summary>
+script2 控制項。
+</summary>
+<remarks>
+自動產生的欄位。
+若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+</remarks>
+</member>
+</members>
+</doc>
