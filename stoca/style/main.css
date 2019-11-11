@@ -34,7 +34,24 @@ html,body{
     border:1px solid #999;
     line-height:30px;
     font-size:18px;
+    padding-top: 0;
     font-weight:bold;
+    overflow: hidden;
+    transition: 0.5s;
+    height: 328px;
+}
+.closeBtn {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+.closed {
+    height: 20px!important;
+    width: 20px!important;
+    opacity: .5;
+}
+.closed:hover {
+    opacity: 1;
 }
 .panel-item {
     width: 100%;

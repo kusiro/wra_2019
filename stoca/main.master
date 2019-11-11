@@ -7,11 +7,15 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>豪雨災點</title>
+    <script src="https://kit.fontawesome.com/5ede0ee51b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style/main.css">
 </head>
 <body>
     <h1 class="title">豪雨事件災點</h1>
     <div id="floating-panel">
+        <div class="closeBtn" onclick="closePanel()">
+            <i class="fas fa-angle-up"></i>
+        </div>
         <div class="panel-item">
             <asp:ContentPlaceHolder ID="input" runat="server">
             </asp:ContentPlaceHolder>
@@ -455,4 +459,19 @@
             }
         }
     }
+
+    closePanel = () => {
+        var panel = document.querySelector('#floating-panel');
+        var icon = document.querySelector('.fas');
+        if(panel.classList.length == 0){
+            panel.classList.add('closed');
+            icon.classList.remove('fa-angle-up');
+            icon.classList.add('fa-angle-down');
+        } else {
+            panel.classList.remove('closed');
+            icon.classList.remove('fa-angle-down');
+            icon.classList.add('fa-angle-up');
+        }
+    }
+
 </script>
