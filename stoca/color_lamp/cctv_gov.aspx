@@ -1,28 +1,32 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-<meta charset="utf-8">
-<link rel="stylesheet" href="../style/main.css">
-<title>道路積淹水影像偵測系統</title>
-<style>
-.icon {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: nowrap;
-    left: 13px;
-    top: 530px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    z-index: 5;
-}
-</style>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../style/main.css">
+    <script src="https://kit.fontawesome.com/5ede0ee51b.js" crossorigin="anonymous"></script>
+    <title>道路積淹水影像偵測系統</title>
+    <style>
+    .icon {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: nowrap;
+        left: 13px;
+        top: 530px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0.7);
+        z-index: 5;
+    }
+    </style>
 </head>
 <body style="font-family:微軟正黑體">
 <h1 class="title">道路積淹水影像偵測系統</h1>
 <div id="floating-panel">
+    <div class="closeBtn" onclick="closePanel()">
+        <i class="fas fa-angle-up"></i>
+    </div>
     <input type="checkbox" id="CB_cctv_taipei_t" onclick="toggle_cctv_taipei_t();"> CCTV 新北市 交通局<br/>
     <input type="checkbox" id="CB_cctv_tainan_t" onclick="toggle_cctv_tainan_t();"> CCTV 台南市 交通局<br/>
     <input type="checkbox" id="CB_cctv_tainan_p" onclick="toggle_cctv_tainan_p();"> CCTV 台南市 警察局<br/>
@@ -673,6 +677,19 @@ function initMap() {
             for (var i = 0; i < markers_cctv_kaohsiung.length; i++) {
                 markers_cctv_kaohsiung[i].setMap(null);
             }
+        }
+    }
+    closePanel = () => {
+        var panel = document.querySelector('#floating-panel');
+        var icon = document.querySelector('.fas');
+        if(panel.classList.length == 0){
+            panel.classList.add('closed');
+            icon.classList.remove('fa-angle-up');
+            icon.classList.add('fa-angle-down');
+        } else {
+            panel.classList.remove('closed');
+            icon.classList.remove('fa-angle-down');
+            icon.classList.add('fa-angle-up');
         }
     }
 
