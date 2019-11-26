@@ -66,8 +66,6 @@
                     lastBox: document.getElementById('endDate'),
                     local: 'tw',
                     allowPast: true,
-                    startDate: new Date(document.querySelector('.start').value),
-                    startDate: new Date(document.querySelector('.end').value),
                 }).init();
             var markers_cctv_line = [];
             var markers_cctv_mobile = [];
@@ -318,14 +316,21 @@
     if(window.location.search != ''){
         let startTime = window.location.search.split('&')[0].split('=')[1];
         let endTime = window.location.search.split('&')[1].split('=')[1];
-        document.querySelector('.start').value = startTime;
-        document.querySelector('.end').value = endTime;
+        let start = startTime.split('-')
+        let end = endTime.split('-')
+        document.querySelector('.start').value = start[0] + ' / ' + start[1] + ' / ' + start[2];
+        document.querySelector('.end').value = end[0] + ' / ' + end[1] + ' / ' + end[2];
     } else {
         var today = new Date();
-        document.querySelector('.start').value = today.getFullYear()+"-"+ (today.getMonth()+1) + "-" + (today.getDate()-1);
-        document.querySelector('.end').value = today.getFullYear()+"-"+ (today.getMonth()+1) + "-" + today.getDate();
+        document.querySelector('.start').value = today.getFullYear()+" / "+ (today.getMonth()+1) + " / " + (today.getDate()-1);
+        document.querySelector('.end').value = today.getFullYear()+" / "+ (today.getMonth()+1) + " / " + today.getDate();
     }
     searchDate = () => {
-        console.log(document.querySelector('.start').value)
+        let start = document.querySelector('.start').value.split('/');
+        let end = document.querySelector('.end').value.split('/');
+        location.replace(document.location.origin+document.location.pathname + "?start-time=" + start[0] + '-' + start[1] + '-' + start[2] + '&end-time=' + end[0] + '-' + end[1] + '-' + end[2]);
+        // console.log(start[0]+'-'+start[1]+'-'+start[2]);
+        // console.log(end[0] + '-' + end[1] + '-' + end[2]);
+        console.log(document.location.origin+document.location.pathname)
     }
 </script>
