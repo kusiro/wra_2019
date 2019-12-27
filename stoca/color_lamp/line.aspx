@@ -112,7 +112,8 @@
                 });
                 
                 <%
-                    Dim i As Integer=0
+                    Dim i As Integer = 0
+                    Dim l As Integer = 0
 
                     Dim startTime As String
                     Dim endTime As String
@@ -132,9 +133,9 @@
                     
                     Dim dr As MySqlDataReader = cmd.ExecuteReader()
                     While dr.Read()
-                        i = i + 1
+                        l = l + 1
                         'map
-                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("var line_" & l & "=new google.maps.Marker({" & vbNewLine)
                         Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
                         If dr.Item("color_num") = 1 Then
                             Response.Write("icon:'../../img/map_icon/g.png'," & vbNewLine)
@@ -151,11 +152,11 @@
                         Response.Write("});" & vbNewLine)
 
                         'icon
-                        Response.Write("markers_cctv_line.push(marker_" & i & ");" & vbNewLine)
+                        Response.Write("markers_cctv_line.push(line_" & l & ");" & vbNewLine)
                         'iframe
                         response.write(
                             "var infowindow = null;" & vbNewLine &
-                            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                            "google.maps.event.addListener(line_" & l & ", 'click', function() {" & vbNewLine &
                                 "if (infowindow) {" & vbNewLine &
                                     "infowindow.close();" & vbNewLine &
                                 "}" & vbNewLine &
@@ -163,52 +164,12 @@
                                     "content:'<iframe src=if_cctv_line_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=0></iframe>'," & vbNewLine &
                                     "maxmaxWidth: 600" & vbNewLine &
                                 "});" & vbNewLine &
-                                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                                "infowindow.open(map,line_" & l & ");" & vbNewLine &
                             "})" & vbNewLine
                         )
                     End While
                     dr.Close()
-                    
-                    cmd.CommandText = "select * from mobile_site WHERE `datetime` BETWEEN '" & startTime & "' AND '" & endTime & "';"
-                    dr = cmd.ExecuteReader()
-                    While dr.Read()
-                        i = i + 1
-                        'map
-                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
-                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
-                        If dr.Item("color_num") = 1 Then
-                            Response.Write("icon:'../../img/map_icon/g.png'," & vbNewLine)
-                        ElseIf dr.Item("color_num") = 2 Then
-                            Response.Write("icon:'../../img/map_icon/r.png'," & vbNewLine)
-                        ElseIf dr.Item("color_num") = 3 Then
-                            Response.Write("icon:'../../img/map_icon/grey.png'," & vbNewLine)
-                        ElseIf dr.Item("color_num") = 0 Then
-                            Response.Write("icon:'../../img/map_icon/w.png'," & vbNewLine)
-                        Else
-                            Response.Write("icon:'../../img/map_icon/y.png'," & vbNewLine)
-                        End If
-
-                        Response.Write("});" & vbNewLine)
-
-                        'icon
-                        Response.Write("markers_cctv_mobile.push(marker_" & i & ");" & vbNewLine)
-                        'iframe
-                        response.write(
-                            "var infowindow = null;" & vbNewLine &
-                            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
-                                "if (infowindow) {" & vbNewLine &
-                                    "infowindow.close();" & vbNewLine &
-                                "}" & vbNewLine &
-                                "infowindow = new google.maps.InfoWindow({" & vbNewLine &
-                                    "content:'<iframe src=if_cctv_mobile_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=0></iframe>'," & vbNewLine &
-                                    "maxmaxWidth: 600" & vbNewLine &
-                                "});" & vbNewLine &
-                                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
-                            "})" & vbNewLine
-                        )
-                    End While
-                    dr.Close()
-
+                                        
                     cmd.CommandText = "select * from 26height_site WHERE `datetime` BETWEEN '" & startTime & "' AND '" & endTime & "';"
                     dr = cmd.ExecuteReader()
                     While dr.Read()
@@ -249,13 +210,51 @@
                     End While
                     dr.Close()
                     
+                    Response.Write("alert('Line Robot 有: " & l & " 筆資料\nCCTV26 有: " & i &  "筆資料')" & vbNewLine)
+                                        
+                    cmd.CommandText = "select * from mobile_site;"
+                    dr = cmd.ExecuteReader()
+                    While dr.Read()
+                        i = i + 1
+                        'map
+                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
+                        If dr.Item("color_num") = 1 Then
+                            Response.Write("icon:'../../img/map_icon/g.png'," & vbNewLine)
+                        ElseIf dr.Item("color_num") = 2 Then
+                            Response.Write("icon:'../../img/map_icon/r.png'," & vbNewLine)
+                        ElseIf dr.Item("color_num") = 3 Then
+                            Response.Write("icon:'../../img/map_icon/grey.png'," & vbNewLine)
+                        ElseIf dr.Item("color_num") = 0 Then
+                            Response.Write("icon:'../../img/map_icon/w.png'," & vbNewLine)
+                        Else
+                            Response.Write("icon:'../../img/map_icon/y.png'," & vbNewLine)
+                        End If
+
+                        Response.Write("});" & vbNewLine)
+
+                        'icon
+                        Response.Write("markers_cctv_mobile.push(marker_" & i & ");" & vbNewLine)
+                        'iframe
+                        response.write(
+                            "var infowindow = null;" & vbNewLine &
+                            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                                "if (infowindow) {" & vbNewLine &
+                                    "infowindow.close();" & vbNewLine &
+                                "}" & vbNewLine &
+                                "infowindow = new google.maps.InfoWindow({" & vbNewLine &
+                                    "content:'<iframe src=if_cctv_mobile_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=0></iframe>'," & vbNewLine &
+                                    "maxmaxWidth: 600" & vbNewLine &
+                                "});" & vbNewLine &
+                                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                            "})" & vbNewLine
+                        )
+                    End While
+                    dr.Close()
+                    
                     con.close()
                     con.dispose()
-                    con=nothing
-                    
-                    If i = 0 Then
-                        Response.Write("alert('此時段無資料')")
-                    End if
+                    con=nothing                   
                 %>
             }
         </script>
