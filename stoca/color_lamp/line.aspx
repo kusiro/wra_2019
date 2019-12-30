@@ -114,6 +114,7 @@
                 <%
                     Dim i As Integer = 0
                     Dim l As Integer = 0
+                    Dim m As Integer = 0
 
                     Dim startTime As String
                     Dim endTime As String
@@ -209,15 +210,13 @@
                         )
                     End While
                     dr.Close()
-                    
-                    Response.Write("alert('Line Robot 有: " & l & " 筆資料\nCCTV26 有: " & i &  "筆資料')" & vbNewLine)
-                                        
-                    cmd.CommandText = "select * from mobile_site;"
+                                                                               
+                    cmd.CommandText = "SELECT * from ( SELECT *, ROW_NUMBER() over (PARTITION By address ORDER by datetime DESC) AS sort from mobile_site ) tempsort WHERE tempsort.sort=1;"
                     dr = cmd.ExecuteReader()
                     While dr.Read()
-                        i = i + 1
+                        m = m + 1
                         'map
-                        Response.Write("var marker_" & i & "=new google.maps.Marker({" & vbNewLine)
+                        Response.Write("var marker_" & m & "=new google.maps.Marker({" & vbNewLine)
                         Response.Write("position:{lat:" & dr.Item("lat") & ",lng:" & dr.Item("lon") & "}," & vbNewLine)
                         If dr.Item("color_num") = 1 Then
                             Response.Write("icon:'../../img/map_icon/g.png'," & vbNewLine)
@@ -234,11 +233,11 @@
                         Response.Write("});" & vbNewLine)
 
                         'icon
-                        Response.Write("markers_cctv_mobile.push(marker_" & i & ");" & vbNewLine)
+                        Response.Write("markers_cctv_mobile.push(marker_" & m & ");" & vbNewLine)
                         'iframe
                         response.write(
                             "var infowindow = null;" & vbNewLine &
-                            "google.maps.event.addListener(marker_" & i & ", 'click', function() {" & vbNewLine &
+                            "google.maps.event.addListener(marker_" & m & ", 'click', function() {" & vbNewLine &
                                 "if (infowindow) {" & vbNewLine &
                                     "infowindow.close();" & vbNewLine &
                                 "}" & vbNewLine &
@@ -246,10 +245,12 @@
                                     "content:'<iframe src=if_cctv_mobile_mseg.aspx?aid=" & dr.Item("aid") & " width=500 height=400 frameborder=0></iframe>'," & vbNewLine &
                                     "maxmaxWidth: 600" & vbNewLine &
                                 "});" & vbNewLine &
-                                "infowindow.open(map,marker_" & i & ");" & vbNewLine &
+                                "infowindow.open(map,marker_" & m & ");" & vbNewLine &
                             "})" & vbNewLine
                         )
                     End While
+                    
+                    Response.Write("alert('日期範圍 " & startTime & "~" & endTime & ", 資料筆數狀況:\nLine Robot: " & l & " 筆資料\n行動測站: " & m & " 筆資料\nCCTV26: " & i &  "筆資料')" & vbNewLine)
                     dr.Close()
                     
                     con.close()
