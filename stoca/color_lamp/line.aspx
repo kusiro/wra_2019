@@ -125,6 +125,20 @@
                         startTime = Request.QueryString("start-time")
                         endTime = Request.QueryString("end-time")
                     End If
+                    
+                    Dim startTimeMo As String
+                    Dim endTimeMo As String
+                    Dim startTimeArray() As String
+                    Dim endTimeArray() As String
+                    If String.IsNullOrEmpty(Request.QueryString("start-time")) Then
+                        startTimeMo = String.Format("{0:yyyy/MM/dd}", DateTime.Now)
+                        endTimeMo = String.Format("{0:yyyy/MM/dd}", DateTime.Now.AddDays(1))
+                    Else
+                        startTimeArray = Split(Request.QueryString("start-time"), "-")
+                        endTimeArray = Split(Request.QueryString("end-time"), "-")
+                        startTimeMo = startTimeArray(0) & "/" & startTimeArray(1) & "/" & startTimeArray(2) & " 00:00:00"
+                        endTimeMo = endTimeArray(0) & "/" & endTimeArray(1) & "/" & endTimeArray(2) & " 23:59:59"
+                    End If
                         
                     Dim con As MySqlConnection=New MySqlConnection(Application("DB"))
                     con.open()
@@ -211,7 +225,7 @@
                     End While
                     dr.Close()
                                                                                
-                    cmd.CommandText = "SELECT * from ( SELECT *, ROW_NUMBER() over (PARTITION By address ORDER by datetime DESC) AS sort from mobile_site ) tempsort WHERE tempsort.sort=1;"
+                    cmd.CommandText = "SELECT * from ( SELECT *, ROW_NUMBER() over (PARTITION By address ORDER by datetime DESC) AS sort from mobile_site ) tempsort WHERE tempsort.sort=1 AND `datetime` BETWEEN '" & startTimeMo & "' AND '" & endTimeMo & "';"
                     dr = cmd.ExecuteReader()
                     While dr.Read()
                         m = m + 1
@@ -332,8 +346,14 @@
         if(start[2].length === 1){
             start[2] = '0'+start[2];
         }
+        if(start[1].length === 1){
+            start[1] = '0'+start[1];
+        }
         if (end[2].length === 1) {
             end[2] = '0' + end[2];
+        }
+        if(end[1].length === 1){
+            end[1] = '0'+end[1];
         }
         location.replace(document.location.origin+document.location.pathname + "?start-time=" + start[0] + '-' + start[1] + '-' + start[2] + '&end-time=' + end[0] + '-' + end[1] + '-' + end[2]);
         // console.log(start[0]+'-'+start[1]+'-'+start[2]);
